@@ -2,7 +2,7 @@ package ufcg.edu;
 
 import java.util.List;
 
-public class Individual {
+public class Individual implements Comparable<Individual> {
 
     private List<Gene> genes;
     private boolean mutated;
@@ -29,5 +29,10 @@ public class Individual {
 
     public void setMutated() {
         this.mutated = true;
+    }
+
+    @Override
+    public int compareTo(Individual o) {
+        return 0;
     }
 }

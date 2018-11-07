@@ -18,7 +18,7 @@ public class GeneDirectionImpl implements Gene {
                 mutationWithInterval(MED_MUTATION_VARIATION) |
                 mutationWithInterval(SMALL_MUTATION_VARIATION) ;
     }
-    
+
     private boolean randomMutation() {
         if (Utils.willMutate(RATE_OF_RANDOM_MUTATION)) {
             Random random = new Random();
