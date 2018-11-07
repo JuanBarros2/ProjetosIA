@@ -1,24 +1,33 @@
 package ufcg.edu;
 
 import java.util.List;
-import java.util.Random;
 
 public class Individual {
 
     private List<Gene> genes;
+    private boolean mutated;
 
     public Individual(List<Gene> genes){
         this.genes = genes;
+        this.mutated = false;
     }
 
     public void mutation(){
-        Random random = new Random();
+        
         for(Gene gene: getGenes()){
-            gene.doMutation(0);
+            mutated = mutated | gene.doMutation();
         }
     }
 
     public List<Gene> getGenes() {
         return genes;
+    }
+
+    public boolean isMutated() {
+        return this.mutated;
+    }
+
+    public void setMutated() {
+        this.mutated = true;
     }
 }
