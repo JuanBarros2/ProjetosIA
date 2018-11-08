@@ -40,7 +40,7 @@ public class GeneticAlgorithm {
             for (Individual aux: population){
                 aux.mutation();
             }
-            generationCount++;
+            this.generationCount++;
         }
     }
 
@@ -55,6 +55,10 @@ public class GeneticAlgorithm {
             result = population[1];
         }
         return result;
+    }
+
+    public Integer getGenerationCount() {
+        return generationCount;
     }
 }
 
