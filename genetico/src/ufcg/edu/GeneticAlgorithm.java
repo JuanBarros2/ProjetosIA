@@ -1,5 +1,6 @@
 package ufcg.edu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GeneticAlgorithm {
@@ -10,6 +11,8 @@ public class GeneticAlgorithm {
 
     public GeneticAlgorithm(FitnessFunction fitnessFunction){
         this.population = new Individual[2];
+        this.population[0] = new Individual(new ArrayList<>());
+        this.population[1] = this.population[0].clone();
         this.generationCount = 0;
         this.fitnessFunction = fitnessFunction;
     }
@@ -24,7 +27,6 @@ public class GeneticAlgorithm {
         for(Individual aux: population){
             aux.setScore(this.fitnessFunction.getScore(aux));
         }
-        generationCount++;
         return this.getBest();
     }
 
@@ -33,7 +35,12 @@ public class GeneticAlgorithm {
      */
     public void runAlgorithm(){
         while(true){
-            evaluatePopulation();
+            population[0] = evaluatePopulation();
+            population[1] = population[0].clone();
+            for (Individual aux: population){
+                aux.mutation();
+            }
+            generationCount++;
         }
     }
 

@@ -15,7 +15,6 @@ public class Individual implements Comparable<Individual> {
     }
 
     public void mutation(){
-
         for(Gene gene: getGenes()){
             mutated = mutated | gene.doMutation();
         }
@@ -44,5 +43,9 @@ public class Individual implements Comparable<Individual> {
     @Override
     public int compareTo(Individual o) {
         return score.compareTo(o.getScore());
+    }
+
+    public Individual clone(){
+        return new Individual(this.genes);
     }
 }
