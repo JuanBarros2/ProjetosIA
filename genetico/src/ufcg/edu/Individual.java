@@ -6,14 +6,16 @@ public class Individual implements Comparable<Individual> {
 
     private List<Gene> genes;
     private boolean mutated;
+    private Integer score;
 
     public Individual(List<Gene> genes){
         this.genes = genes;
         this.mutated = false;
+        this.score = 0;
     }
 
     public void mutation(){
-        
+
         for(Gene gene: getGenes()){
             mutated = mutated | gene.doMutation();
         }
@@ -31,8 +33,16 @@ public class Individual implements Comparable<Individual> {
         this.mutated = true;
     }
 
+    public Integer getScore(){
+        return this.score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     @Override
     public int compareTo(Individual o) {
-        return 0;
+        return score.compareTo(o.getScore());
     }
 }
