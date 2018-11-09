@@ -5,12 +5,16 @@ import java.util.Random;
 public class GeneDirectionImpl implements Gene {
     //A maioria desses valores foi escolhido de maneira aleatória
     private Integer force;
-    private Integer MAX_FORCE = 400;
+    public Integer MAX_FORCE = 400;
     private Integer RATE_OF_RANDOM_MUTATION = Utils.LOW_MUTATION_RATE;
     private Integer RATE_OF_MEDIUM_MUTATION = Utils.MED_MUTATION_RATE;
     private Integer RATE_OF_SMALL_MUTATION = Utils.HIGH_MUTATION_RATE;
     private Integer SMALL_MUTATION_VARIATION = 30;
     private Integer MED_MUTATION_VARIATION = 70;
+
+    public GeneDirectionImpl(Integer force){
+        this.force = force;
+    }
 
     @Override
     public boolean doMutation() {
@@ -37,7 +41,11 @@ public class GeneDirectionImpl implements Gene {
         return false;
     }
 
-    private void setForce(Integer newForce) {
+    public Integer getForce() {
+        return force;
+    }
+
+    public void setForce(Integer newForce) {
         newForce = Math.max(newForce, 0);
         newForce = Math.min(newForce, MAX_FORCE);
         this.force = newForce;

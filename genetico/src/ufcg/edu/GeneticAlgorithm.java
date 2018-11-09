@@ -35,7 +35,7 @@ public class GeneticAlgorithm {
     public void runAlgorithm(){
         while(true){
             population[1].mutation();
-            
+
             population[0] = evaluatePopulation();
             population[1] = population[0].clone();
             this.generationCount++;
