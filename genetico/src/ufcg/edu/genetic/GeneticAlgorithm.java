@@ -1,6 +1,11 @@
 package ufcg.edu.genetic;
 
+import ufcg.edu.commons.Direction;
+import ufcg.edu.commons.Params;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class GeneticAlgorithm {
 
@@ -70,6 +75,31 @@ public class GeneticAlgorithm {
             result = population[1];
         }
         return result;
+    }
+
+    private Params toParams(Individual individual){
+        Params params = new Params();
+        List<Chromossome> chromossome = individual.getChromossomes();
+
+        List<Gene<Integer>> directionalGenes = chromossome.get(0).getGenes();
+        ArrayList<Direction> directions = new ArrayList<>();
+        for (int i = 0; i < directionalGenes.size(); i = i + 2) {
+            directions.add(new Direction(
+               directionalGenes.get(i).getForce(), directionalGenes.get(i + 1).getForce()
+            ));
+        }
+
+        List<Gene<Integer>> scannerGenes = chromossome.get(1).getGenes();
+        ArrayList<Direction> scanner = new ArrayList<>();
+        for (int i = 0; i < scannerGenes.size(); i++) {
+            scanner.add(new Direction(
+                    scannerGenes.get(i).getForce(), scannerGenes.get(i + 1).getForce()
+            ));
+        }
+
+        params.setDefaultMovement(directions);
+        params.setDefaultScan(scanner);
+        return params;
     }
 
     public Integer getGenerationCount() {

@@ -4,8 +4,7 @@ import ufcg.edu.commons.Utils;
 
 import java.util.Random;
 
-public class GeneQuantitativeImpl implements Gene {
-    //A maioria desses valores foi escolhido de maneira aleatória
+public class GeneQuantitativeImpl implements Gene<Integer> {
     private Integer force;
     public Integer MAX_FORCE;
     private Integer RATE_OF_RANDOM_MUTATION = Utils.LOW_MUTATION_RATE;
@@ -48,6 +47,7 @@ public class GeneQuantitativeImpl implements Gene {
         }
     }
 
+    @Override
     public Integer getForce() {
         return force;
     }

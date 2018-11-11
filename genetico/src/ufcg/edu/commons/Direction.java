@@ -1,6 +1,5 @@
 package ufcg.edu.commons;
 
-import ufcg.edu.genetic.Gene;
 import ufcg.edu.genetic.GeneQuantitativeImpl;
 
 import java.io.Serializable;
@@ -14,6 +13,7 @@ public class Direction implements Serializable {
         this.degress = new GeneQuantitativeImpl(degress,360);
         this.prob = new GeneQuantitativeImpl(prob, 100);
     }
+
 
     public Integer getDegress() {
         return degress.getForce();

@@ -3,15 +3,15 @@ package ufcg.edu.genetic;
 import java.util.List;
 import java.util.Objects;
 
-public class Chromossome {
-    private List<Gene> genes;
+public class Chromossome<T> {
+    private List<Gene<T>> genes;
 
-    public Chromossome(List<Gene> genes){
+    public Chromossome(List<Gene<T>> genes){
         this.genes = genes;
     }
 
     public boolean mutation(){
-        List<Gene> init = this.genes;
+        List<Gene<T>> init = this.genes;
         for(Gene gene: getGenes()){
             gene.doMutation();
         }
@@ -32,7 +32,7 @@ public class Chromossome {
         return Objects.hash(genes);
     }
 
-    public List<Gene> getGenes() {
+    public List<Gene<T>> getGenes() {
         return genes;
     }
 }
