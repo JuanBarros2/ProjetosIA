@@ -4,6 +4,7 @@ import robocode.*;
 import ufcg.edu.commons.Params;
 import java.awt.Color;
 import java.util.Collections;
+import java.util.Random;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
