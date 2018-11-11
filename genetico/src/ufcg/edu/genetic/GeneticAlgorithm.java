@@ -25,7 +25,7 @@ public class GeneticAlgorithm {
         GeneQuantitativeImpl degresGene = new GeneQuantitativeImpl(359);
         GeneQuantitativeImpl power = new GeneQuantitativeImpl(100);
 
-        params.setDefaultScan(Arrays.asList(degresGene, degresGene, degresGene, degresGene));
+        params.setDefaultScan(Arrays.asList(new Direction(), new Direction(), new Direction()));
 
 
         params.setDefaultMovement(Arrays.asList(
