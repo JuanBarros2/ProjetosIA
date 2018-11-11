@@ -45,7 +45,7 @@ public class GeneticAlgorithm {
      * Inicia o processo de aprendizagem com algoritmo genético.
      */
     public void runAlgorithm(Integer generationCountMax){
-        while(generationCount <= generationCountMax){
+        while(generationCount < generationCountMax){
             population[0] = getBestIndividual();
 
             population[1] = population[0].clone();

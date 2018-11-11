@@ -21,33 +21,31 @@ public class GeneQuantitativeImpl implements Gene {
 
     public GeneQuantitativeImpl(Integer maxForce){
         this.MAX_FORCE = maxForce;
-
+        this.force = 0;
         randomMutation();
     }
 
     @Override
     public boolean doMutation() {
-        return randomMutation() |
-                mutationWithInterval(MED_MUTATION_VARIATION) |
-                mutationWithInterval(SMALL_MUTATION_VARIATION) ;
+        GeneQuantitativeImpl init = this;
+        randomMutation();
+        mutationWithInterval(MED_MUTATION_VARIATION);
+        mutationWithInterval(SMALL_MUTATION_VARIATION);
+        return !init.equals(this);
     }
 
-    private boolean randomMutation() {
+    private void randomMutation() {
         if (Utils.willMutate(RATE_OF_RANDOM_MUTATION)) {
             Random random = new Random();
             this.force = random.nextInt(MAX_FORCE + 1);
-            return true;
         }
-        return false;
     }
 
-    private boolean mutationWithInterval(Integer rate) {
+    private void mutationWithInterval(Integer rate) {
         if (Utils.willMutate(RATE_OF_MEDIUM_MUTATION)) {
             Integer change = Utils.generateRandominInterval(rate);
             setForce(this.force + change);
-            return true;
         }
-        return false;
     }
 
     public Integer getForce() {

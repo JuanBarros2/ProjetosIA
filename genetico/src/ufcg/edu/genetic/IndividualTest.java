@@ -12,9 +12,6 @@ public class IndividualTest {
 
     @Before
     public void setUp() throws Exception {
-        individual = new Individual(
-                Arrays.asList(new GeneQuantitativeImpl(100), new GeneQuantitativeImpl(100))
-        );
     }
 
     @Test
