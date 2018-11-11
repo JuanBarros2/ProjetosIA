@@ -1,72 +1,39 @@
 package ufcg.edu.commons;
 
+import ufcg.edu.genetic.Gene;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Params implements Serializable {
+public class Params implements Serializable, Comparable<Params> {
     private static final long serialVersionUID = 1L;
 
     /** Movement when nothing happens */
-    ArrayList<Direction> defaultMovement;
+    List<Direction> defaultMovement;
+    Integer score;
+    List<Gene> defaultScan;
 
-    /** Default steps to go ahead when nothing happens */
-    int step;
-
-    /** Default scan turn */
-    ArrayList<Direction> defaultScan;
-
-    public void setDefaultMovement(ArrayList<Direction> defaultMovement) {
+    public void setDefaultMovement(List<Direction> defaultMovement) {
         this.defaultMovement = defaultMovement;
     }
 
-    public ArrayList<Direction> getDefaultMovement() {
+    public List<Direction> getDefaultMovement() {
         return defaultMovement;
     }
 
-    public ArrayList<Direction> getDefaultScan() {
+    public List<Gene> getDefaultScan() {
         return defaultScan;
     }
 
-    public void setDefaultScan(ArrayList<Direction> defaultScan) {
+    public void setDefaultScan(List<Gene> defaultScan) {
         this.defaultScan = defaultScan;
     }
 
-    private List<Chromossome> chromossomes;
-    private Integer score;
-    private boolean mutated;
-
-    public Individual(List<Chromossome> chromossomes){
-        this.chromossomes = chromossomes;
-        this.score = 0;
-        mutated = false;
-    }
-
-    public Individual(Params params){
-        this.chromossomes = new ArrayList<>();
-
-        ArrayList<Gene<Integer>> genes = new ArrayList<>();
-        for (Direction direction: params.getDefaultMovement()){
-            genes.add(direction.degress);
-            genes.add(direction.prob);
-        }
-        this.chromossomes.add(new Chromossome(genes));
-
-        genes.clear();
-        for (Direction direction: params.getDefaultScan()){
-            genes.add(direction.degress);
-        }
-
-        this.chromossomes.add(new Chromossome(genes));
-    }
-
     public void mutation(){
-        for(Chromossome chromossome: chromossomes){
-            mutated = mutated | chromossome.mutation();
+        for (Gene gene: defaultScan){
+            gene.doMutation();
         }
-    }
-
-    public List<Chromossome> getChromossomes() {
-        return chromossomes;
     }
 
     public Integer getScore(){
@@ -78,11 +45,11 @@ public class Params implements Serializable {
     }
 
     @Override
-    public int compareTo(Individual o) {
+    public int compareTo(Params o) {
         return score.compareTo(o.getScore());
     }
 
     public Params clone(){
-        return new Params(this.chromossomes);
+        return this;
     }
 }

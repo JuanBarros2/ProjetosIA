@@ -9,9 +9,9 @@ public class Direction implements Serializable {
 
     public GeneQuantitativeImpl degress, prob;
 
-    public Direction(Integer degress, Integer prob){
-        this.degress = new GeneQuantitativeImpl(degress,360);
-        this.prob = new GeneQuantitativeImpl(prob, 100);
+    public Direction(){
+        this.degress = new GeneQuantitativeImpl(359);
+        this.prob = new GeneQuantitativeImpl(100);
     }
 
     public Direction(GeneQuantitativeImpl degress, GeneQuantitativeImpl prob){
@@ -20,10 +20,10 @@ public class Direction implements Serializable {
     }
 
     public Integer getDegrees() {
-        return degress.getForce();
+        return degress.getValue();
     }
 
     public Integer getProb() {
-        return prob.getForce();
+        return prob.getValue();
     }
 }

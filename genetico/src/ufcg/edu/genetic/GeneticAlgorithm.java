@@ -3,6 +3,7 @@ package ufcg.edu.genetic;
 import ufcg.edu.commons.Direction;
 import ufcg.edu.commons.Params;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GeneticAlgorithm {
@@ -21,13 +22,18 @@ public class GeneticAlgorithm {
 
     private Params randomizeIndividual(){
         Params params = new Params();
-        params.setDefaultScan(Arrays.asList(
-                new Direction()
-                        new GeneQuantitativeImpl(359),
-                        new GeneQuantitativeImpl(100)
-                ));
+
+        GeneQuantitativeImpl degresGene = new GeneQuantitativeImpl(359);
+        GeneQuantitativeImpl power = new GeneQuantitativeImpl(100);
+
+        params.setDefaultScan(Arrays.asList(degresGene, degresGene, degresGene, degresGene));
+
+
         params.setDefaultMovement(Arrays.asList(
-                        new GeneQuantitativeImpl(359)));
+                new Direction(), new Direction(), new Direction()
+        ));
+
+        return params;
     }
 
     /**
@@ -38,7 +44,7 @@ public class GeneticAlgorithm {
      */
     private Params getBestIndividual(){
         GeneticAlgorithm algorithm = this;
-        this.fitnessFunction.getScore(toParams(population[1]), score -> {
+        this.fitnessFunction.getScore(population[1], score -> {
             population[1].setScore(score);
             algorithm.notify();
         });
@@ -77,13 +83,12 @@ public class GeneticAlgorithm {
      * @return indivíduo com maior score
      */
     public Params getBest(){
-        Individual result = population[0];
+        Params result = population[0];
         if(population[1] != null && population[0].compareTo(population[1]) < 0){
             result = population[1];
         }
         return result;
     }
-
     public Integer getGenerationCount() {
         return generationCount;
     }
