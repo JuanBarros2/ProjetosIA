@@ -5,12 +5,10 @@ import robocode.HitWallEvent;
 import robocode.Robot;
 import robocode.ScannedRobotEvent;
 import ufcg.edu.commons.Direction;
+import ufcg.edu.commons.IO;
 import ufcg.edu.commons.Params;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
@@ -26,14 +24,9 @@ public class Mendel extends Robot {
      * Default behavior
      */
     public void run() {
-        // Initialization of the robot should be put here
+        IO<Params> io = new IO("./params.ser");
+        params = io.read();
 
-        // After trying out your robot, try uncommenting the import at the top,
-        // and the next line:
-
-        // setColors(Color.red,Color.blue,Color.green); // body,gun,radar
-
-        // Robot main loop
         new Scan().start();
         int currentMov = 0;
         while (true) {
