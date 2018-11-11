@@ -1,6 +1,7 @@
 package ufcg.edu.robot;
 
 import robocode.*;
+import ufcg.edu.commons.Direction;
 import ufcg.edu.commons.Params;
 import java.awt.Color;
 import java.util.Collections;
@@ -29,24 +30,39 @@ public class Mendel extends Robot {
 
 		// Robot main loop
 		while (true) {
-			int nextDegrees = nextDegrees();
-			if(nextDegrees < 180){
+			int nextDegrees = nextDegrees(params.getDefaultMovement());
+			if (nextDegrees < 180) {
 				turnRight(nextDegrees);
-			}else{
+			} else {
 				turnLeft(360 - nextDegrees);
+			}
+			ahead(params.step);
+		}
+	}
+
+	class Scan extends Thread {
+		public void run() {
+			while (true) {
+				int nextDegrees = nextDegrees(params.getDefaultScan());
+				if (nextDegrees < 180) {
+					turnRadarRight(nextDegrees);
+				} else {
+					turnRadarLeft(360 - nextDegrees);
+				}
 			}
 		}
 	}
 
-	private int nextDegrees(){
-		List<Dir> allMovements = new ArrayList<>();
-		for(Direction dir : params.defaultMovement){
-			allMovements.addAll(Collections.nCopies(dir.prop, dir));
+	private int nextDegrees(List movements) {
+		List<Direction> allMovements = new ArrayList<>();
+		for (Direction dir : movements) {
+			allMovements.addAll(Collections.nCopies(dir.getProb(), dir));
 		}
 		return allMovements.get(randInt(0, allMovements.size())).getDegrees();
 	}
 
 	static Random rand = new Random();
+
 	private randInt(int min, int max){
 		return  rand.nextInt((max - min)) + min;
 	}

@@ -1,3 +1,4 @@
+package ufcg.edu.commons;
 import java.io.Serializable;
 import java.util.ArrayList;
 
