@@ -20,7 +20,7 @@ public class Individual implements Comparable<Individual> {
     public Individual(Params params){
         this.chromossomes = new ArrayList<>();
 
-        ArrayList<Gene> genes = new ArrayList<>();
+        ArrayList<Gene<Integer>> genes = new ArrayList<>();
         for (Direction direction: params.getDefaultMovement()){
             genes.add(direction.degress);
             genes.add(direction.prob);
@@ -41,12 +41,8 @@ public class Individual implements Comparable<Individual> {
         }
     }
 
-    public boolean isMutated() {
-        return this.mutated;
-    }
-
-    public void setMutated() {
-        this.mutated = true;
+    public List<Chromossome> getChromossomes() {
+        return chromossomes;
     }
 
     public Integer getScore(){
