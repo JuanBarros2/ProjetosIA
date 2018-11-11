@@ -33,6 +33,9 @@ public class Params implements Serializable, Comparable<Params> {
         for (Direction gene: defaultScan){
             gene.doMutation();
         }
+        for (Direction gene: defaultScan){
+            gene.doMutation();
+        }
     }
 
     public Integer getScore(){
