@@ -51,6 +51,12 @@ public class QuantitativeMutator {
         }
     }
 
+    public void setValue(Integer value) {
+        value = Math.max(value, MIN_VALUE);
+        value = Math.min(value, MAX_VALUE);
+        this.value = value;
+    }
+
     public boolean mutated() {
         return this.mutated;
     }
