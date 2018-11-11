@@ -95,7 +95,7 @@ public class GeneticAlgorithm {
         ArrayList<Direction> directions = new ArrayList<>();
         for (int i = 0; i < directionalGenes.size(); i = i + 2) {
             directions.add(new Direction(
-               directionalGenes.get(i).getForce(), directionalGenes.get(i + 1).getForce()
+               directionalGenes.get(i).getValue(), directionalGenes.get(i + 1).getValue()
             ));
         }
 
@@ -103,7 +103,7 @@ public class GeneticAlgorithm {
         ArrayList<Direction> scanner = new ArrayList<>();
         for (int i = 0; i < scannerGenes.size(); i++) {
             scanner.add(new Direction(
-                    scannerGenes.get(i).getForce(), scannerGenes.get(i + 1).getForce()
+                    scannerGenes.get(i).getValue(), scannerGenes.get(i + 1).getValue()
             ));
         }
 

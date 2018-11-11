@@ -36,7 +36,7 @@ public class Mendel extends Robot {
 			} else {
 				turnLeft(360 - nextDegrees);
 			}
-			ahead(params.step);
+			ahead(params.getSteps());
 		}
 	}
 

@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 public interface Gene<T> extends Serializable {
     boolean doMutation();
-    public T getForce();
+    public T getValue();
     String toString();
 }

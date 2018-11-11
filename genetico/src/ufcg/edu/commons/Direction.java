@@ -20,10 +20,10 @@ public class Direction implements Serializable {
     }
 
     public Integer getDegrees() {
-        return degress.getForce();
+        return degress.getValue();
     }
 
     public Integer getProb() {
-        return prob.getForce();
+        return prob.getValue();
     }
 }

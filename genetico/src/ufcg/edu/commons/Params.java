@@ -30,4 +30,8 @@ public class Params implements Serializable {
     public void setDefaultScan(ArrayList<Direction> defaultScan) {
         this.defaultScan = defaultScan;
     }
+
+    public int getSteps() {
+        return this.step;
+    }
 }
