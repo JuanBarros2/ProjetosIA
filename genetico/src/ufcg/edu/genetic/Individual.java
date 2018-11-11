@@ -1,27 +1,44 @@
 package ufcg.edu.genetic;
 
+import ufcg.edu.commons.Direction;
+import ufcg.edu.commons.Params;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Individual implements Comparable<Individual> {
-
-    private List<Gene> genes;
-    private boolean mutated;
+    private List<Chromossome> chromossomes;
     private Integer score;
+    private boolean mutated;
 
-    public Individual(List<Gene> genes){
-        this.genes = genes;
-        this.mutated = false;
+    public Individual(List<Chromossome> chromossomes){
+        this.chromossomes = chromossomes;
         this.score = 0;
+        mutated = false;
+    }
+
+    public Individual(Params params){
+        this.chromossomes = new ArrayList<>();
+
+        ArrayList<Gene> genes = new ArrayList<>();
+        for (Direction direction: params.getDefaultMovement()){
+            genes.add(direction.degress);
+            genes.add(direction.prob);
+        }
+        this.chromossomes.add(new Chromossome(genes));
+
+        genes.clear();
+        for (Direction direction: params.getDefaultScan()){
+            genes.add(direction.degress);
+        }
+
+        this.chromossomes.add(new Chromossome(genes));
     }
 
     public void mutation(){
-        for(Gene gene: getGenes()){
-            mutated = mutated | gene.doMutation();
+        for(Chromossome chromossome: chromossomes){
+            mutated = mutated | chromossome.mutation();
         }
-    }
-
-    public List<Gene> getGenes() {
-        return genes;
     }
 
     public boolean isMutated() {
@@ -46,6 +63,6 @@ public class Individual implements Comparable<Individual> {
     }
 
     public Individual clone(){
-        return new Individual(this.genes);
+        return new Individual(this.chromossomes);
     }
 }

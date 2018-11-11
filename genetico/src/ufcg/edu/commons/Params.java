@@ -14,4 +14,20 @@ public class Params implements Serializable {
 
     /** Default scan turn */
     ArrayList<Direction> defaultScan;
+
+    public void setDefaultMovement(ArrayList<Direction> defaultMovement) {
+        this.defaultMovement = defaultMovement;
+    }
+
+    public ArrayList<Direction> getDefaultMovement() {
+        return defaultMovement;
+    }
+
+    public ArrayList<Direction> getDefaultScan() {
+        return defaultScan;
+    }
+
+    public void setDefaultScan(ArrayList<Direction> defaultScan) {
+        this.defaultScan = defaultScan;
+    }
 }

@@ -1,6 +1,6 @@
 package ufcg.edu.genetic;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GeneticAlgorithm {
 
@@ -10,10 +10,22 @@ public class GeneticAlgorithm {
 
     public GeneticAlgorithm(FitnessFunction fitnessFunction){
         this.population = new Individual[2];
-        this.population[0] = new Individual(new ArrayList<>());
+        this.population[0] = randomizeIndividual();
         this.population[1] = this.population[0].clone();
         this.generationCount = 0;
         this.fitnessFunction = fitnessFunction;
+    }
+
+    private Individual randomizeIndividual(){
+        return new Individual(Arrays.asList(
+                new Chromossome(Arrays.asList(
+                        new GeneQuantitativeImpl(359),
+                        new GeneQuantitativeImpl(100)
+                )),
+                new Chromossome(Arrays.asList(
+                        new GeneQuantitativeImpl(359)
+                ))
+        ));
     }
 
     /**
@@ -22,7 +34,7 @@ public class GeneticAlgorithm {
      * indivíduos da população
      * @return indivíduo com melhor pontuação.
      */
-    public Individual evaluatePopulation(){
+    public Individual getBestIndividual(){
         for(Individual aux: population){
             aux.setScore(this.fitnessFunction.getScore(aux));
         }
@@ -32,14 +44,19 @@ public class GeneticAlgorithm {
     /**
      * Inicia o processo de aprendizagem com algoritmo genético.
      */
-    public void runAlgorithm(){
-        while(true){
-            population[1].mutation();
+    public void runAlgorithm(Integer generationCountMax){
+        while(generationCount <= generationCountMax){
+            population[0] = getBestIndividual();
 
-            population[0] = evaluatePopulation();
             population[1] = population[0].clone();
+
+            population[1].mutation();
             this.generationCount++;
         }
+    }
+
+    public void reset(){
+        this.generationCount = 0;
     }
 
     /**

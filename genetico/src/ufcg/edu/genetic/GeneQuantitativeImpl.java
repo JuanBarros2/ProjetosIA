@@ -19,6 +19,12 @@ public class GeneQuantitativeImpl implements Gene {
         this.MAX_FORCE = maxForce;
     }
 
+    public GeneQuantitativeImpl(Integer maxForce){
+        this.MAX_FORCE = maxForce;
+
+        randomMutation();
+    }
+
     @Override
     public boolean doMutation() {
         return randomMutation() |
