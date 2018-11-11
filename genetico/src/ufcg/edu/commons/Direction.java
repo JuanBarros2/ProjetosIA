@@ -1,10 +1,11 @@
 package ufcg.edu.commons;
 
+import ufcg.edu.genetic.Gene;
 import ufcg.edu.genetic.GeneQuantitativeImpl;
 
 import java.io.Serializable;
 
-public class Direction implements Serializable {
+public class Direction implements Serializable, Gene {
     private static final long serialVersionUID = 1L;
 
     public GeneQuantitativeImpl degress, step;
@@ -25,5 +26,15 @@ public class Direction implements Serializable {
 
     public Integer getStep() {
         return step.getValue();
+    }
+
+    @Override
+    public boolean doMutation() {
+        return false;
+    }
+
+    @Override
+    public Object getValue() {
+        return null;
     }
 }

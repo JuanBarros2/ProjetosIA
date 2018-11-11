@@ -3,7 +3,6 @@ package ufcg.edu.commons;
 import ufcg.edu.genetic.Gene;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Params implements Serializable, Comparable<Params> {
@@ -12,7 +11,7 @@ public class Params implements Serializable, Comparable<Params> {
     /** Movement when nothing happens */
     List<Direction> defaultMovement;
     Integer score;
-    List<Gene> defaultScan;
+    List<Direction> defaultScan;
 
     public void setDefaultMovement(List<Direction> defaultMovement) {
         this.defaultMovement = defaultMovement;
@@ -22,16 +21,16 @@ public class Params implements Serializable, Comparable<Params> {
         return defaultMovement;
     }
 
-    public List<Gene> getDefaultScan() {
+    public List<Direction> getDefaultScan() {
         return defaultScan;
     }
 
-    public void setDefaultScan(List<Gene> defaultScan) {
+    public void setDefaultScan(List<Direction> defaultScan) {
         this.defaultScan = defaultScan;
     }
 
     public void mutation(){
-        for (Gene gene: defaultScan){
+        for (Direction gene: defaultScan){
             gene.doMutation();
         }
     }
