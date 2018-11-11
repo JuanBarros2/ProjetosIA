@@ -1,7 +1,8 @@
-package ufcg.edu.genetic;
+package ufcg.edu.test;
 
 import org.junit.Before;
 import org.junit.Test;
+import ufcg.edu.genetic.GeneQuantitativeImpl;
 
 import static org.junit.Assert.*;
 
@@ -17,8 +18,8 @@ public class GeneQuantitativeImplTest {
     @Test
     public void doMutation() {
         Integer aux = INITIAL_FORCE;
-        for(int i = 0; i != 50; i++){
-            assertEquals(geneDirection.doMutation(), !geneDirection.getForce().equals(aux));
+        for(int i = 0; i != 1000; i++){
+            assertEquals(!geneDirection.getForce().equals(aux)+"", geneDirection.doMutation(), !geneDirection.getForce().equals(aux));
             aux = geneDirection.getForce();
         }
     }

@@ -1,6 +1,9 @@
-package ufcg.edu.genetic;
+package ufcg.edu.test;
 
 import org.junit.Assert;
+import ufcg.edu.genetic.FitnessFunction;
+import ufcg.edu.genetic.GeneticAlgorithm;
+import ufcg.edu.genetic.Individual;
 
 public class GeneticAlgorithmTest {
     private GeneticAlgorithm geneticAlgorithm;

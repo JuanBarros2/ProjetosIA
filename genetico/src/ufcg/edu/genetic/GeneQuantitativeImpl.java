@@ -27,11 +27,11 @@ public class GeneQuantitativeImpl implements Gene {
 
     @Override
     public boolean doMutation() {
-        GeneQuantitativeImpl init = this;
+        Integer force = this.force;
         randomMutation();
         mutationWithInterval(MED_MUTATION_VARIATION);
         mutationWithInterval(SMALL_MUTATION_VARIATION);
-        return !init.equals(this);
+        return !force.equals(this.force);
     }
 
     private void randomMutation() {

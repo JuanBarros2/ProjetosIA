@@ -1,7 +1,10 @@
-package ufcg.edu.genetic;
+package ufcg.edu.test;
 
 import org.junit.Before;
 import org.junit.Test;
+import ufcg.edu.genetic.Chromossome;
+import ufcg.edu.genetic.Gene;
+import ufcg.edu.genetic.GeneQuantitativeImpl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,9 +32,7 @@ public class ChromossomeTest {
         List<Gene> last = genes;
 
         for(int i = 0; i != 1000; i++) {
-            assertEquals(i+ last.toString() + chromossome.getGenes().toString(),
-                    chromossome.mutation(),
-                    !chromossome.getGenes().equals(last));
+            assertEquals(i+"", chromossome.mutation(), !chromossome.getGenes().equals(last));
             last = chromossome.getGenes();
         }
     }

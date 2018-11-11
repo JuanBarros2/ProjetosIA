@@ -11,11 +11,11 @@ public class Chromossome {
     }
 
     public boolean mutation(){
-        boolean mutated = false;
+        List<Gene> init = this.genes;
         for(Gene gene: getGenes()){
-            mutated = mutated | gene.doMutation();
+            gene.doMutation();
         }
-        return mutated;
+        return !Objects.equals(init, this.genes);
     }
 
     @Override
