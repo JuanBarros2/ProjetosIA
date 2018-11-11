@@ -3,9 +3,7 @@ package ufcg.edu.test;
 import org.junit.Before;
 import org.junit.Test;
 import ufcg.edu.genetic.Gene;
-import ufcg.edu.genetic.Individual;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class IndividualTest {

@@ -10,7 +10,6 @@ import robocode.control.events.BattleAdaptor;
 import robocode.control.events.BattleCompletedEvent;
 import ufcg.edu.genetic.FitnessFunction;
 import ufcg.edu.genetic.GeneticAlgorithm;
-import ufcg.edu.genetic.Individual;
 import ufcg.edu.genetic.OnFitnessComplete;
 
 public class Script implements FitnessFunction {
