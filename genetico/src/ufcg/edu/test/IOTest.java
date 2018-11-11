@@ -1,4 +1,4 @@
-package ufcg.edu.commons;
+package ufcg.edu.test;
 
 import org.junit.Assert;
 import org.junit.Test;

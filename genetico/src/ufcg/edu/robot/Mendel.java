@@ -3,7 +3,6 @@ package ufcg.edu.robot;
 import robocode.*;
 import ufcg.edu.commons.Direction;
 import ufcg.edu.commons.Params;
-import java.awt.Color;
 import java.util.Collections;
 import java.util.Random;
 

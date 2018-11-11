@@ -39,9 +39,19 @@ public class GeneticAlgorithm {
      * indivíduos da população
      * @return indivíduo com melhor pontuação.
      */
-    public Individual getBestIndividual(){
-        for(Individual aux: population){
-            aux.setScore(this.fitnessFunction.getScore(aux));
+    private Individual getBestIndividual(){
+        GeneticAlgorithm algorithm = this;
+        this.fitnessFunction.getScore(toParams(population[1]), score -> {
+            population[1].setScore(score);
+            algorithm.notify();
+        });
+
+        try {
+            algorithm.wait();
+        } catch (InterruptedException e) {
+
+
+            e.printStackTrace();
         }
         return this.getBest();
     }

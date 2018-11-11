@@ -1,7 +1,5 @@
 package ufcg.edu.commons;
 
-import ufcg.edu.commons.Direction;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 

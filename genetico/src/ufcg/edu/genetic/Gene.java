@@ -1,6 +1,8 @@
 package ufcg.edu.genetic;
 
-public interface Gene<T> {
+import java.io.Serializable;
+
+public interface Gene<T> extends Serializable {
     boolean doMutation();
     public T getForce();
     String toString();
