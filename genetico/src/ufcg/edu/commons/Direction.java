@@ -15,7 +15,7 @@ public class Direction implements Serializable {
         this.prob = new GeneQuantitativeImpl(prob, 100);
     }
 
-    public Integer getDegress() {
+    public Integer getDegrees() {
         return degress.getForce();
     }
 
