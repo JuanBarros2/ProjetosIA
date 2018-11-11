@@ -29,6 +29,7 @@ public class Mendel extends Robot {
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
 		// Robot main loop
+		Scan = new Scan().start();
 		while (true) {
 			int nextDegrees = nextDegrees(params.getDefaultMovement());
 			if (nextDegrees < 180) {
