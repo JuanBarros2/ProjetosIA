@@ -1,17 +1,17 @@
-package ufcg.edu;
+package ufcg.edu.genetic;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class GeneDirectionImplTest {
-    private GeneDirectionImpl geneDirection;
+public class GeneQuantitativeImplTest {
+    private GeneQuantitativeImpl geneDirection;
     private final Integer INITIAL_FORCE = 100;
 
     @Before
     public void setUp(){
-        geneDirection = new GeneDirectionImpl(INITIAL_FORCE);
+        geneDirection = new GeneQuantitativeImpl(INITIAL_FORCE, 400);
     }
 
     @Test

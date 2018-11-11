@@ -1,7 +1,8 @@
-package ufcg.edu;
+package ufcg.edu.commons;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ufcg.edu.commons.IO;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ufcg.edu;
+package ufcg.edu.genetic;
 
 import java.util.ArrayList;
 

@@ -1,12 +1,10 @@
-package ufcg.edu;
+package ufcg.edu.genetic;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class IndividualTest {
     Individual individual;
@@ -15,7 +13,7 @@ public class IndividualTest {
     @Before
     public void setUp() throws Exception {
         individual = new Individual(
-                Arrays.asList(new GeneDirectionImpl(100), new GeneDirectionImpl(100))
+                Arrays.asList(new GeneQuantitativeImpl(100), new GeneQuantitativeImpl(100))
         );
     }
 

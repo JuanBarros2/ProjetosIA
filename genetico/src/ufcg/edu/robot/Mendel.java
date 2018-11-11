@@ -27,7 +27,6 @@ public class Mendel extends Robot
 		// Robot main loop
 		while(true) {
 			// Replace the next 4 lines with any behavior you would like
-			ahead(params.detaul);
 			turnGunRight(360);
 			turnGunRight(360);
 		}

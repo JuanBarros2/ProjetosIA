@@ -1,4 +1,4 @@
-package ufcg.edu;
+package ufcg.edu.genetic;
 
 public class GeneticAlgorithmTest {
     private GeneticAlgorithm geneticAlgorithm;

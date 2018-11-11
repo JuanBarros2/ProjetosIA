@@ -1,4 +1,4 @@
-package ufcg.edu;
+package ufcg.edu.commons;
 
 import java.io.*;
 
