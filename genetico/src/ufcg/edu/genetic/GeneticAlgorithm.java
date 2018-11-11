@@ -3,7 +3,6 @@ package ufcg.edu.genetic;
 import ufcg.edu.commons.Direction;
 import ufcg.edu.commons.Params;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GeneticAlgorithm {
@@ -52,8 +51,6 @@ public class GeneticAlgorithm {
         try {
             algorithm.wait();
         } catch (InterruptedException e) {
-
-
             e.printStackTrace();
         }
         return this.getBest();
