@@ -1,15 +1,18 @@
 package ufcg.edu.robot;
+
 import robocode.*;
 import ufcg.edu.commons.Params;
 import java.awt.Color;
+import java.util.Collections;
+import java.util.Random;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 /**
- * Mendel - a robot by a group for the project of artificial intelligence class in 2018.2, at UFCG.
+ * Mendel - a robot by a group for the project of artificial intelligence class
+ * in 2018.2, at UFCG.
  */
-public class Mendel extends Robot
-{
+public class Mendel extends Robot {
 
 	Params params;
 
@@ -25,11 +28,27 @@ public class Mendel extends Robot
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
 		// Robot main loop
-		while(true) {
-			// Replace the next 4 lines with any behavior you would like
-			turnGunRight(360);
-			turnGunRight(360);
+		while (true) {
+			int nextDegrees = nextDegrees();
+			if(nextDegrees < 180){
+				turnRight(nextDegrees);
+			}else{
+				turnLeft(360 - nextDegrees);
+			}
 		}
+	}
+
+	private int nextDegrees(){
+		List<Dir> allMovements = new ArrayList<>();
+		for(Direction dir : params.defaultMovement){
+			allMovements.addAll(Collections.nCopies(dir.prop, dir));
+		}
+		return allMovements.get(randInt(0, allMovements.size())).getDegrees();
+	}
+
+	static Random rand = new Random();
+	private randInt(int min, int max){
+		return  rand.nextInt((max - min)) + min;
 	}
 
 	/**
@@ -48,7 +67,7 @@ public class Mendel extends Robot
 		ahead(10);
 		turnGunRight(360);
 	}
-	
+
 	/**
 	 * onHitWall: What to do when you hit a wall
 	 */
@@ -56,5 +75,5 @@ public class Mendel extends Robot
 		// Replace the next line with any behavior you would like
 		back(20);
 		turnLeft(90);
-	}	
+	}
 }
