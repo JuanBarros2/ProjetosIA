@@ -52,7 +52,11 @@ public class Params implements Serializable, Comparable<Params> {
     }
 
     public Params clone(){
-        return this;
+        Params params = new Params();
+        params.setScore(this.score);
+        params.setDefaultMovement(this.defaultMovement);
+        params.setDefaultScan(this.defaultScan);
+        return params;
     }
 
     @Override

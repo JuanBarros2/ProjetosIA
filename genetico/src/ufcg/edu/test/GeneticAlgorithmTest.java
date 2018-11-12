@@ -13,6 +13,7 @@ public class GeneticAlgorithmTest {
     private FitnessFunction fitnessFunction = new FitnessFunction() {
         Random random = new Random();
         int count = 0;
+
         @Override
         public void getScore(Params individual, OnFitnessComplete listener) {
             new Thread(new Runnable() {
@@ -59,4 +60,5 @@ public class GeneticAlgorithmTest {
         geneticAlgorithm.runAlgorithm(-100);
         Assert.assertEquals(geneticAlgorithm.getGenerationCount().intValue(), 0);
     }
+
 }

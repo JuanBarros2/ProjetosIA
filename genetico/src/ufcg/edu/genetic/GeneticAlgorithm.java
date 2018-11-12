@@ -89,12 +89,14 @@ public class GeneticAlgorithm implements OnFitnessComplete {
      */
     public Params getBest(){
         Params result = population[0];
+        System.out.println("As saídas são: " + population[0].getScore() + " " + population[1].getScore());
         if(population[0].compareTo(population[1]) < 0){
             result = population[1];
         }
         System.out.println("O melhor indivíduo foi: " + result);
         return result;
     }
+
     public Integer getGenerationCount() {
         return generationCount;
     }
