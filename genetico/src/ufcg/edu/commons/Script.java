@@ -77,10 +77,7 @@ public class Script implements FitnessFunction {
     
     @Override
     public void writeGeneration(Integer score, Integer generation) {
-        System.out.println("Registrando geração aaaa " + generation + " SCORE: " + score);
-       
-		//writeCsv(score, generation);
-		
+        System.out.println("Registrando geração" + generation + " SCORE: " + score);
     }
     
     public void writeCsv(Integer score, Integer generation) throws IOException {
@@ -95,12 +92,4 @@ public class Script implements FitnessFunction {
           writer.append(";");
           writer.close();
     }
-
-    public void writeFileParams(Params parametros) throws IOException {
-    	io.write(parametros);
-   }
-   
-   public void readFileParams() throws IOException {
-   	   io.read();
-   }
 }
