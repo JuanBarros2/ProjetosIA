@@ -74,23 +74,6 @@ public class Script implements FitnessFunction {
 		}
     }
     
-    public static void writeFileScoreGen(Integer score, Integer generation) throws IOException {
-    	FileWriter  file = new FileWriter("Gen.txt", true);
-        BufferedWriter output = new BufferedWriter(file);
-        output.write("Geração: "+ generation + ",SCORE: " + score);
-        output.close();
-        readFileScoreGen();
-    }
-    
-    public static void readFileScoreGen() throws IOException {
-    	BufferedReader br;
-        br = new BufferedReader(new FileReader("Gen.txt"));
-        String line;
-        while((line = br.readLine()) != null) {
-            System.out.println(line);
-        }
-        br.close();
-    }
     
     public void writeFileParams(Params parametros) throws IOException {
     	io.write(parametros);
