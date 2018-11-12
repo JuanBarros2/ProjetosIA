@@ -60,7 +60,8 @@ public class Script implements FitnessFunction {
     }
 
     @Override
-    public void writeGeneration(Integer score, Integer generation, String opponent) {
+    public void writeGeneration(Integer score, Integer generation) {
+        System.out.println("Registrando geração " + generation + " SCORE: " + score);
 
     }
     

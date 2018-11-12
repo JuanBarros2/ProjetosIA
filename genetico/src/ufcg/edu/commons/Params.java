@@ -13,7 +13,7 @@ public class Params implements Serializable, Comparable<Params> {
      * Movement when nothing happens
      */
     List<Direction> defaultMovement;
-    Integer score;
+    Integer score = 0;
     GeneQuantitativeImpl firePower;
     List<Direction> defaultScan;
     Direction onHitWall;

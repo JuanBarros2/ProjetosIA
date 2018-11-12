@@ -15,5 +15,5 @@ public interface FitnessFunction {
      */
     void getScore(Params individual, OnFitnessComplete listener);
 
-    void writeGeneration(Integer score, Integer generation, String opponent);
+    void writeGeneration(Integer score, Integer generation);
 }
