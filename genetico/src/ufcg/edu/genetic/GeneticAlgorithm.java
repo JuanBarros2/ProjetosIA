@@ -58,7 +58,7 @@ public class GeneticAlgorithm implements OnFitnessComplete {
             while (!population[1].mutation()) {
                 continue;
             }
-            population[0] = getBest();
+
             this.generationCount++;
             fitnessFunction.writeGeneration(population[0].getScore(), generationCount);
         }
