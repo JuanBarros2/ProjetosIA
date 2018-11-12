@@ -1,4 +1,6 @@
 .idea
 *.iml
-genetico/out
+genetico/out/*
 /bin/
+.project
+.classpath

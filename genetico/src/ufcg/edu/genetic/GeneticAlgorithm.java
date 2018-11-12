@@ -2,7 +2,13 @@ package ufcg.edu.genetic;
 
 import ufcg.edu.commons.Params;
 
+<<<<<<< HEAD
 public class GeneticAlgorithm {
+=======
+import java.util.Arrays;
+
+public class GeneticAlgorithm implements OnFitnessComplete {
+>>>>>>> f78cddc31d79f33279cbf5f5ebfeeee35228daa1
 
     private Params[] population;
     private Integer generationCount;
@@ -23,14 +29,12 @@ public class GeneticAlgorithm {
      *
      * @return indivíduo com melhor pontuação.
      */
-    private Params getBestIndividual() {
+    synchronized private Params getBestIndividual(){
         GeneticAlgorithm algorithm = this;
-        this.fitnessFunction.getScore(population[1], score -> {
-            population[1].setScore(score);
-            algorithm.notify();
-        });
+        this.fitnessFunction.getScore(population[1], this);
 
         try {
+            System.out.println("Aguardando resposta do robocode");
             algorithm.wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -38,11 +42,19 @@ public class GeneticAlgorithm {
         return this.getBest();
     }
 
+    @Override
+    synchronized public void onComplete(Integer score) {
+        System.out.println("Algoritmo genético recebe score: "+ score);
+        population[1].setScore(score);
+        this.notify();
+    }
+
     /**
      * Inicia o processo de aprendizagem com algoritmo genético.
      */
-    public void runAlgorithm(Integer generationCountMax) {
-        while (generationCount < generationCountMax) {
+    public void runAlgorithm(Integer generationCountMax){
+        System.out.println("Rodando algoritmo genético para "+generationCountMax +" gerações");
+        while(generationCount < generationCountMax){
             population[0] = getBestIndividual();
 
             population[1] = population[0].clone();
@@ -51,6 +63,7 @@ public class GeneticAlgorithm {
                 continue;
             }
             this.generationCount++;
+            fitnessFunction.writeGeneration(population[0].getScore(), generationCount, "");
         }
     }
 
@@ -66,9 +79,10 @@ public class GeneticAlgorithm {
      */
     public Params getBest() {
         Params result = population[0];
-        if (population[1] != null && population[0].compareTo(population[1]) < 0) {
+        if(population[0].compareTo(population[1]) < 0){
             result = population[1];
         }
+        System.out.println("O melhor indivíduo foi: " + result);
         return result;
     }
 
