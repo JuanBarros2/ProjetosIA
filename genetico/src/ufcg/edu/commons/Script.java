@@ -21,10 +21,14 @@ public class Script implements FitnessFunction {
 
     private File robocodeHome;
     private RobocodeEngine engine;
+    private IO<Params> io;
+    private String filePath;
     private static final int NUM_ROUNDS = 1;
     private static final int NUM_GER = 100;
 
     public Script() {
+    	this.filePath = "BattleParams.txt";
+    	io = new IO<Params>(filePath);
         robocodeHome = new File("D:\\robocode");
         engine = new RobocodeEngine(robocodeHome);
     }
@@ -34,9 +38,9 @@ public class Script implements FitnessFunction {
         geneticAlgorithm.runAlgorithm(NUM_GER);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Script bc = new Script();
-
+       
         bc.battle();
     }
 
@@ -62,25 +66,36 @@ public class Script implements FitnessFunction {
     @Override
     public void writeGeneration(Integer score, Integer generation) {
         System.out.println("Registrando geraÃ§Ã£o " + generation + " SCORE: " + score);
-
+        try {
+			writeFileScoreGen(score, generation);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
-    public static void writeFileParams(Params parametros) throws IOException {
-   	 FileWriter  file = new FileWriter("BattleParams.txt", true);
+    public static void writeFileScoreGen(Integer score, Integer generation) throws IOException {
+    	FileWriter  file = new FileWriter("BattleParams.txt", true);
         BufferedWriter output = new BufferedWriter(file);
-
-        output.write("Parametros: " + parametros);
-        
+        output.write("Geração: "+ generation + ",SCORE: " + score);
         output.close();
+    }
+    
+    public static void readFileScoreGen() throws IOException {
+    	BufferedReader br;
+        br = new BufferedReader(new FileReader("Gen.txt"));
+        String line;
+        while((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+        br.close();
+    }
+    
+    public void writeFileParams(Params parametros) throws IOException {
+    	io.write(parametros);
+    	
    }
    
-   public static void readFileParams() throws IOException {
-   	   BufferedReader br;
-       br = new BufferedReader(new FileReader("BattleParams.txt"));
-       String line;
-       while((line = br.readLine()) != null) {
-           System.out.println(line);
-       }
-       br.close();
+   public void readFileParams() throws IOException {
+   	   io.read();
    }
 }
