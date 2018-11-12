@@ -26,7 +26,6 @@ public class Script implements FitnessFunction {
 
     private void battle() {
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(this);
-
         geneticAlgorithm.runAlgorithm(NUM_GER);
     }
 
@@ -45,11 +44,13 @@ public class Script implements FitnessFunction {
         engine.addBattleListener(new BattleAdaptor() {
             @Override
             public void onBattleCompleted(BattleCompletedEvent event) {
+                System.out.println("Batalha finalizada");
                 super.onBattleCompleted(event);
                 listener.onComplete(11);
             }
         });
         engine.setVisible(false);
+        System.out.println("Iniciando batalha");
         engine.runBattle(specs, true);
     }
 

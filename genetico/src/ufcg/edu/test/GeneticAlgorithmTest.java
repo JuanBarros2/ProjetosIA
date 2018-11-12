@@ -6,19 +6,32 @@ import ufcg.edu.genetic.FitnessFunction;
 import ufcg.edu.genetic.GeneticAlgorithm;
 import ufcg.edu.genetic.OnFitnessComplete;
 
+import java.util.Random;
+
 public class GeneticAlgorithmTest {
     private GeneticAlgorithm geneticAlgorithm;
     private FitnessFunction fitnessFunction = new FitnessFunction() {
-
+        Random random = new Random();
         int count = 0;
         @Override
         public void getScore(Params individual, OnFitnessComplete listener) {
-            listener.onComplete(0);
+            new Thread(new Runnable() {
+                @Override
+                synchronized public void run() {
+                    try {
+                        wait(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Função fitness rodada com sucesso");
+                    listener.onComplete(random.nextInt(500));
+                }
+            }).start();
         }
 
         @Override
         public void writeGeneration(Integer score, Integer generation, String opponent) {
-            
+
         }
 
     };

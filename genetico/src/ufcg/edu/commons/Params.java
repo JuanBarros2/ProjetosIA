@@ -54,4 +54,9 @@ public class Params implements Serializable, Comparable<Params> {
     public Params clone(){
         return this;
     }
+
+    @Override
+    public String toString() {
+        return score.toString();
+    }
 }
