@@ -64,9 +64,10 @@ public class Script implements FitnessFunction {
                 super.onBattleCompleted(event);
                 System.out.println("Batalha finalizada");
                 for (BattleResults result : event.getSortedResults()) {
-                    System.out.println(result.getScore() + " - " + result.getTeamLeaderName());
+                    if(result.getTeamLeaderName().equals("sample.Mendel")){
+                        listener.onComplete(result.getScore());
+                    }
                 }
-                listener.onComplete(11);
             }
         });
         engine.setVisible(false);
