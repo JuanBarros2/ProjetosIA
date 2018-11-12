@@ -8,7 +8,7 @@ public class GeneticAlgorithm implements OnFitnessComplete {
     private Params[] population;
     private Integer generationCount;
     private FitnessFunction fitnessFunction;
-    
+
     public GeneticAlgorithm(FitnessFunction fitnessFunction) {
         this.population = new Params[2];
         this.population[0] = new Params();

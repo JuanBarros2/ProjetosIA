@@ -31,6 +31,8 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
         this.MIN_VALUE = minValue;
         this.SMALL_MUTATION_VARIATION = smallRange;
         this.MED_MUTATION_VARIATION = medRange;
+        this.value = 0;
+        randomMutation();
     }
 
 
