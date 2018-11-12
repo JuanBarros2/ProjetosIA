@@ -2,18 +2,13 @@ package ufcg.edu.genetic;
 
 import ufcg.edu.commons.Params;
 
-<<<<<<< HEAD
-public class GeneticAlgorithm {
-=======
-import java.util.Arrays;
-
 public class GeneticAlgorithm implements OnFitnessComplete {
->>>>>>> f78cddc31d79f33279cbf5f5ebfeeee35228daa1
+
 
     private Params[] population;
     private Integer generationCount;
     private FitnessFunction fitnessFunction;
-
+    
     public GeneticAlgorithm(FitnessFunction fitnessFunction) {
         this.population = new Params[2];
         this.population[0] = new Params();
