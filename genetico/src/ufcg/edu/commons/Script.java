@@ -25,7 +25,7 @@ public class Script implements FitnessFunction {
     public Script() {
     	this.filePath = "BattleParams.txt";
     	io = new IO<Params>(filePath);
-        robocodeHome = new File("/home/ignacio/robocode/");
+        robocodeHome = new File("C:\\robocode");
         engine = new RobocodeEngine(robocodeHome);
     }
 
@@ -75,10 +75,11 @@ public class Script implements FitnessFunction {
     }
     
     public static void writeFileScoreGen(Integer score, Integer generation) throws IOException {
-    	FileWriter  file = new FileWriter("BattleParams.txt", true);
+    	FileWriter  file = new FileWriter("Gen.txt", true);
         BufferedWriter output = new BufferedWriter(file);
         output.write("Geração: "+ generation + ",SCORE: " + score);
         output.close();
+        readFileScoreGen();
     }
     
     public static void readFileScoreGen() throws IOException {
