@@ -9,6 +9,7 @@ import ufcg.edu.genetic.OnFitnessComplete;
 import java.util.Random;
 
 public class GeneticAlgorithmTest {
+
     private GeneticAlgorithm geneticAlgorithm;
     private FitnessFunction fitnessFunction = new FitnessFunction() {
         Random random = new Random();
@@ -31,8 +32,7 @@ public class GeneticAlgorithmTest {
         }
 
         @Override
-        public void writeGeneration(Integer score, Integer generation, String opponent) {
-
+        public void writeGeneration(Integer score, Integer generation) {
         }
 
     };

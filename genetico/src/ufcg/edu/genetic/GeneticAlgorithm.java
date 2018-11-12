@@ -50,6 +50,7 @@ public class GeneticAlgorithm implements OnFitnessComplete {
     public void runAlgorithm(Integer generationCountMax){
         System.out.println("Rodando algoritmo genético para "+generationCountMax +" gerações");
         while(generationCount < generationCountMax){
+            System.out.println("Iniciando geração " + generationCount);
             population[0] = getBestIndividual();
 
             population[1] = population[0].clone();
@@ -57,6 +58,7 @@ public class GeneticAlgorithm implements OnFitnessComplete {
             while (!population[1].mutation()) {
                 continue;
             }
+            population[0] = getBest();
             this.generationCount++;
             fitnessFunction.writeGeneration(population[0].getScore(), generationCount);
         }

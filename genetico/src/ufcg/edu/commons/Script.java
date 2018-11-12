@@ -1,12 +1,6 @@
 package ufcg.edu.commons;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
+import robocode.BattleResults;
 import robocode.control.BattleSpecification;
 import robocode.control.BattlefieldSpecification;
 import robocode.control.RobocodeEngine;
@@ -16,6 +10,8 @@ import robocode.control.events.BattleCompletedEvent;
 import ufcg.edu.genetic.FitnessFunction;
 import ufcg.edu.genetic.GeneticAlgorithm;
 import ufcg.edu.genetic.OnFitnessComplete;
+
+import java.io.*;
 
 public class Script implements FitnessFunction {
 
@@ -29,7 +25,7 @@ public class Script implements FitnessFunction {
     public Script() {
     	this.filePath = "BattleParams.txt";
     	io = new IO<Params>(filePath);
-        robocodeHome = new File("D:\\robocode");
+        robocodeHome = new File("/home/ignacio/robocode/");
         engine = new RobocodeEngine(robocodeHome);
     }
 
@@ -46,7 +42,7 @@ public class Script implements FitnessFunction {
 
     @Override
     public void getScore(Params individual, OnFitnessComplete listener) {
-        RobotSpecification[] robots = engine.getLocalRepository("supersample.SuperRamFire,sample.Crazy,sample.Walls");
+        RobotSpecification[] robots = engine.getLocalRepository("sample.RamFire,sample.Crazy,sample.Walls,sample.Mendel");
         BattlefieldSpecification battlefield = new BattlefieldSpecification();
         BattleSpecification specs = new BattleSpecification(NUM_ROUNDS, battlefield, robots);
 
@@ -55,7 +51,12 @@ public class Script implements FitnessFunction {
             public void onBattleCompleted(BattleCompletedEvent event) {
                 System.out.println("Batalha finalizada");
                 super.onBattleCompleted(event);
+                for (BattleResults result : event.getSortedResults()) {
+                    System.out.println(result.getScore() + " - " + result.getTeamLeaderName());
+                }
+                System.out.println("done");
                 listener.onComplete(11);
+                System.out.println("SHOW2");
             }
         });
         engine.setVisible(false);
@@ -76,7 +77,7 @@ public class Script implements FitnessFunction {
     public static void writeFileScoreGen(Integer score, Integer generation) throws IOException {
     	FileWriter  file = new FileWriter("BattleParams.txt", true);
         BufferedWriter output = new BufferedWriter(file);
-        output.write("Geração: "+ generation + ",SCORE: " + score);
+        output.write("GeraÃ§Ã£o: "+ generation + ",SCORE: " + score);
         output.close();
     }
     

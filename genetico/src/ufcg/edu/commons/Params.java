@@ -18,7 +18,6 @@ public class Params implements Serializable, Comparable<Params> {
     List<Direction> defaultScan;
     Direction onHitWall;
     Direction hitByBullet;
-    boolean mutated = false;
 
     public Params() {
         this.defaultMovement = Arrays.asList(new Direction(), new Direction(), new Direction());
@@ -83,6 +82,11 @@ public class Params implements Serializable, Comparable<Params> {
         mutated |= firePower.doMutation();
         mutated |= hitByBullet.doMutation();
         mutated |= onHitWall.doMutation();
+        if (mutated) {
+            System.out.println("MUTOU!");
+        } else {
+            System.out.println("N MUTOU :(");
+        }
         return mutated;
     }
 
