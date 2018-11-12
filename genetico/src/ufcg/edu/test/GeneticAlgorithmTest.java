@@ -16,6 +16,11 @@ public class GeneticAlgorithmTest {
             listener.onComplete(0);
         }
 
+        @Override
+        public void writeGeneration(Integer score, Integer generation, String opponent) {
+            
+        }
+
     };
 
     @org.junit.Before

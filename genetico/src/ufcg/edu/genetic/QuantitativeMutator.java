@@ -25,9 +25,8 @@ public class QuantitativeMutator implements Gene<Integer> {
     }
 
     @Override
-    public Integer doMutation(Integer value) {
+    public Integer doMutation() {
         this.mutated = false;
-        this.value = value;
         randomMutation();
         mutationWithInterval(MED_MUTATION_VARIATION);
         mutationWithInterval(SMALL_MUTATION_VARIATION);

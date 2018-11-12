@@ -55,6 +55,6 @@ public class Script implements FitnessFunction {
 
     @Override
     public void writeGeneration(Integer score, Integer generation, String opponent) {
-        
+
     }
 }
