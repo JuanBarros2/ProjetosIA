@@ -25,7 +25,7 @@ public class Script implements FitnessFunction {
     public Script() {
     	this.filePath = "BattleParams.txt";
     	io = new IO<Params>(filePath);
-        robocodeHome = new File("C:\\robocode");
+        robocodeHome = new File("/home/juan/robocode"); // JUAN: "/home/juan/robocode"
         engine = new RobocodeEngine(robocodeHome);
     }
 
@@ -48,8 +48,8 @@ public class Script implements FitnessFunction {
         engine.addBattleListener(new BattleAdaptor() {
             @Override
             public void onBattleCompleted(BattleCompletedEvent event) {
-                System.out.println("Batalha finalizada");
                 super.onBattleCompleted(event);
+                System.out.println("Batalha finalizada");
                 for (BattleResults result : event.getSortedResults()) {
                     System.out.println(result.getScore() + " - " + result.getTeamLeaderName());
                 }
@@ -81,12 +81,10 @@ public class Script implements FitnessFunction {
     	  writer.append(";");
     	  writer.flush();
           writer.close();
-    
-    	
     }
+
     public void writeFileParams(Params parametros) throws IOException {
     	io.write(parametros);
-    	
    }
    
    public void readFileParams() throws IOException {

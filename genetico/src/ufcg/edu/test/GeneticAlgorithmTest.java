@@ -20,11 +20,6 @@ public class GeneticAlgorithmTest {
             new Thread(new Runnable() {
                 @Override
                 synchronized public void run() {
-                    try {
-                        wait(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                     System.out.println("Função fitness rodada com sucesso");
                     listener.onComplete(random.nextInt(500));
                 }

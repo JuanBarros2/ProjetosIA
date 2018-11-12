@@ -82,11 +82,6 @@ public class Params implements Serializable, Comparable<Params> {
         mutated |= firePower.doMutation();
         mutated |= hitByBullet.doMutation();
         mutated |= onHitWall.doMutation();
-        if (mutated) {
-            System.out.println("MUTOU!");
-        } else {
-            System.out.println("N MUTOU :(");
-        }
         return mutated;
     }
 

@@ -2,12 +2,13 @@ package ufcg.edu.genetic;
 
 import ufcg.edu.commons.Params;
 
-public class GeneticAlgorithm implements OnFitnessComplete {
+public class GeneticAlgorithm {
 
 
     private Params[] population;
     private Integer generationCount;
     private FitnessFunction fitnessFunction;
+    private boolean isRunning = false;
 
     public GeneticAlgorithm(FitnessFunction fitnessFunction) {
         this.population = new Params[2];
@@ -25,23 +26,20 @@ public class GeneticAlgorithm implements OnFitnessComplete {
      * @return indivíduo com melhor pontuação.
      */
     synchronized private Params getBestIndividual(){
-        GeneticAlgorithm algorithm = this;
-        this.fitnessFunction.getScore(population[1], this);
-
-        try {
-            System.out.println("Aguardando resposta do robocode");
-            algorithm.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        isRunning = true;
+        this.fitnessFunction.getScore(population[1], new OnFitnessComplete() {
+            @Override
+            public void onComplete(Integer score) {
+                System.out.println("Algoritmo genético recebe score: "+ score);
+                isRunning = false;
+                population[1].setScore(score);
+            }
+        });
+        System.out.println("Aguardando resposta do robocode");
+        while(isRunning){
+            continue;
         }
         return this.getBest();
-    }
-
-    @Override
-    synchronized public void onComplete(Integer score) {
-        System.out.println("Algoritmo genético recebe score: "+ score);
-        population[1].setScore(score);
-        this.notify();
     }
 
     /**
@@ -62,6 +60,8 @@ public class GeneticAlgorithm implements OnFitnessComplete {
             this.generationCount++;
             fitnessFunction.writeGeneration(population[0].getScore(), generationCount);
         }
+
+        System.out.println("Algoritmo finalizado com os parametros finais salvos em arquivo");
     }
 
     public void reset() {
