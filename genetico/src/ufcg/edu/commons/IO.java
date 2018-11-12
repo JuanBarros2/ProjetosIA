@@ -5,11 +5,11 @@ import java.io.*;
 public class IO<T> {
     private String filePath;
 
-    public IO(String filePath){
+    public IO(String filePath) {
         this.filePath = filePath;
     }
 
-    public boolean write(T t){
+    public boolean write(T t) {
         ObjectOutputStream objectOut = null;
         try {
             objectOut = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filePath)));
@@ -21,7 +21,7 @@ public class IO<T> {
         }
     }
 
-    public T read(){
+    public T read() {
         ObjectOutputStream objectOut = null;
         try {
             ObjectInputStream objectIn = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filePath)));

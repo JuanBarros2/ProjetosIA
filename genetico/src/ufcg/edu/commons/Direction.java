@@ -1,6 +1,5 @@
 package ufcg.edu.commons;
 
-import ufcg.edu.genetic.Gene;
 import ufcg.edu.genetic.GeneQuantitativeImpl;
 
 import java.io.Serializable;
@@ -10,9 +9,10 @@ public class Direction implements Serializable {
 
     public GeneQuantitativeImpl degress, step;
 
+
     public Direction() {
-        this.degress = new GeneQuantitativeImpl(359);
-        this.step = new GeneQuantitativeImpl(100);
+        this.degress = new GeneQuantitativeImpl(359,0,15,70);
+        this.step = new GeneQuantitativeImpl(100,0,5,40);
     }
 
     public Direction(GeneQuantitativeImpl degress, GeneQuantitativeImpl prob) {
@@ -29,6 +29,10 @@ public class Direction implements Serializable {
     }
 
     public boolean doMutation() {
-        return false;
+        boolean result = false;
+        result |= this.degress.doMutation();
+        result |= this.step.doMutation();
+        return result;
+
     }
 }

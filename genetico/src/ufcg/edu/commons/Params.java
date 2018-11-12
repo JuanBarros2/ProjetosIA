@@ -1,17 +1,60 @@
 package ufcg.edu.commons;
 
-import ufcg.edu.genetic.Gene;
+import ufcg.edu.genetic.GeneQuantitativeImpl;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 public class Params implements Serializable, Comparable<Params> {
     private static final long serialVersionUID = 1L;
 
-    /** Movement when nothing happens */
+    /**
+     * Movement when nothing happens
+     */
     List<Direction> defaultMovement;
     Integer score;
+    GeneQuantitativeImpl firePower;
     List<Direction> defaultScan;
+    Direction onHitWall;
+    Direction hitByBullet;
+    boolean mutated = false;
+
+    public Params() {
+        this.defaultMovement = Arrays.asList(new Direction(), new Direction(), new Direction());
+        this.defaultScan = Arrays.asList(new Direction(), new Direction(), new Direction());
+        this.firePower = new GeneQuantitativeImpl(30,1,5,10);
+        this.onHitWall = new Direction();
+        this.hitByBullet = new Direction();
+    }
+
+
+    public Direction getOnHitWall() {
+        return onHitWall;
+    }
+
+    public void setOnHitWall(Direction onHitWall) {
+        this.onHitWall = onHitWall;
+    }
+
+    public Direction getHitByBullet() {
+        return hitByBullet;
+    }
+
+    public void setHitByBullet(Direction hitByBullet) {
+        this.hitByBullet = hitByBullet;
+    }
+
+
+    public GeneQuantitativeImpl getFirePower() {
+        return firePower;
+    }
+
+    public void setFirePower(GeneQuantitativeImpl firePower) {
+        this.firePower = firePower;
+    }
+
+
 
     public void setDefaultMovement(List<Direction> defaultMovement) {
         this.defaultMovement = defaultMovement;
@@ -29,16 +72,21 @@ public class Params implements Serializable, Comparable<Params> {
         this.defaultScan = defaultScan;
     }
 
-    public void mutation(){
-        for (Direction gene: defaultScan){
-            gene.doMutation();
+    public boolean mutation() {
+        boolean mutated = false;
+        for (Direction gene : defaultMovement) {
+            mutated |= gene.doMutation();
         }
-        for (Direction gene: defaultScan){
-            gene.doMutation();
+        for (Direction gene : defaultScan) {
+            mutated |= gene.doMutation();
         }
+        mutated |= firePower.doMutation();
+        mutated |= hitByBullet.doMutation();
+        mutated |= onHitWall.doMutation();
+        return mutated;
     }
 
-    public Integer getScore(){
+    public Integer getScore() {
         return this.score;
     }
 
@@ -51,7 +99,7 @@ public class Params implements Serializable, Comparable<Params> {
         return score.compareTo(o.getScore());
     }
 
-    public Params clone(){
+    public Params clone() {
         return this;
     }
 }

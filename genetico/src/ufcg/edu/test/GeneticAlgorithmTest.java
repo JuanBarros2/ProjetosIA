@@ -11,6 +11,7 @@ public class GeneticAlgorithmTest {
     private FitnessFunction fitnessFunction = new FitnessFunction() {
 
         int count = 0;
+
         @Override
         public void getScore(Params individual, OnFitnessComplete listener) {
             listener.onComplete(0);
@@ -18,7 +19,7 @@ public class GeneticAlgorithmTest {
 
         @Override
         public void writeGeneration(Integer score, Integer generation, String opponent) {
-            
+
         }
 
     };

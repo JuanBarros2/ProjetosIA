@@ -14,19 +14,19 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
     private Integer SMALL_MUTATION_VARIATION = 30;
     private Integer MED_MUTATION_VARIATION = 70;
 
-    public GeneQuantitativeImpl(Integer value, Integer maxValue){
+    public GeneQuantitativeImpl(Integer value, Integer maxValue) {
         this.value = value;
         this.MAX_VALUE = maxValue;
     }
 
-    public GeneQuantitativeImpl(Integer maxValue){
+    public GeneQuantitativeImpl(Integer maxValue) {
         this.MAX_VALUE = maxValue;
         this.value = 0;
         randomMutation();
     }
 
 
-    public GeneQuantitativeImpl(Integer maxValue, Integer minValue, Integer smallRange, Integer medRange){
+    public GeneQuantitativeImpl(Integer maxValue, Integer minValue, Integer smallRange, Integer medRange) {
         this.MAX_VALUE = maxValue;
         this.MIN_VALUE = minValue;
         this.SMALL_MUTATION_VARIATION = smallRange;
@@ -38,8 +38,8 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
     public boolean doMutation() {
         Integer value = this.value;
         randomMutation();
-        mutationWithInterval(MED_MUTATION_VARIATION,RATE_OF_MEDIUM_MUTATION);
-        mutationWithInterval(SMALL_MUTATION_VARIATION,RATE_OF_SMALL_MUTATION);
+        mutationWithInterval(MED_MUTATION_VARIATION, RATE_OF_MEDIUM_MUTATION);
+        mutationWithInterval(SMALL_MUTATION_VARIATION, RATE_OF_SMALL_MUTATION);
         return !value.equals(this.value);
     }
 

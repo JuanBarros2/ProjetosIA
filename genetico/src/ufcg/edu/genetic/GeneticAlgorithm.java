@@ -1,9 +1,6 @@
 package ufcg.edu.genetic;
 
-import ufcg.edu.commons.Direction;
 import ufcg.edu.commons.Params;
-
-import java.util.Arrays;
 
 public class GeneticAlgorithm {
 
@@ -11,37 +8,22 @@ public class GeneticAlgorithm {
     private Integer generationCount;
     private FitnessFunction fitnessFunction;
 
-    public GeneticAlgorithm(FitnessFunction fitnessFunction){
+    public GeneticAlgorithm(FitnessFunction fitnessFunction) {
         this.population = new Params[2];
-        this.population[0] = randomizeIndividual();
+        this.population[0] = new Params();
         this.population[1] = this.population[0].clone();
         this.generationCount = 0;
         this.fitnessFunction = fitnessFunction;
-    }
-
-    private Params randomizeIndividual(){
-        Params params = new Params();
-
-        GeneQuantitativeImpl degresGene = new GeneQuantitativeImpl(359);
-        GeneQuantitativeImpl power = new GeneQuantitativeImpl(100);
-
-        params.setDefaultScan(Arrays.asList(new Direction(), new Direction(), new Direction()));
-
-
-        params.setDefaultMovement(Arrays.asList(
-                new Direction(), new Direction(), new Direction()
-        ));
-
-        return params;
     }
 
     /**
      * Realiza a avaliação da população de acordo com a população
      * disponível. Para isso, ele roda a função fitness em todos os
      * indivíduos da população
+     *
      * @return indivíduo com melhor pontuação.
      */
-    private Params getBestIndividual(){
+    private Params getBestIndividual() {
         GeneticAlgorithm algorithm = this;
         this.fitnessFunction.getScore(population[1], score -> {
             population[1].setScore(score);
@@ -59,33 +41,37 @@ public class GeneticAlgorithm {
     /**
      * Inicia o processo de aprendizagem com algoritmo genético.
      */
-    public void runAlgorithm(Integer generationCountMax){
-        while(generationCount < generationCountMax){
+    public void runAlgorithm(Integer generationCountMax) {
+        while (generationCount < generationCountMax) {
             population[0] = getBestIndividual();
 
             population[1] = population[0].clone();
 
-            population[1].mutation();
+            while (!population[1].mutation()) {
+                continue;
+            }
             this.generationCount++;
         }
     }
 
-    public void reset(){
+    public void reset() {
         this.generationCount = 0;
     }
 
     /**
      * Retorna o melhor indivíduo nessa população. Caso não exista mais de um,
      * ele retornará o primeiro.
+     *
      * @return indivíduo com maior score
      */
-    public Params getBest(){
+    public Params getBest() {
         Params result = population[0];
-        if(population[1] != null && population[0].compareTo(population[1]) < 0){
+        if (population[1] != null && population[0].compareTo(population[1]) < 0) {
             result = population[1];
         }
         return result;
     }
+
     public Integer getGenerationCount() {
         return generationCount;
     }

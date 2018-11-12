@@ -19,16 +19,16 @@ public class IOTest {
     }
 
     @org.junit.After
-    public void tearDown(){
+    public void tearDown() {
     }
 
     @Test
-    public void testWrite(){
+    public void testWrite() {
         Assert.assertTrue(io.write(persist));
     }
 
     @Test
-    public void testRead(){
+    public void testRead() {
         Assert.assertEquals(io.read(), persist);
     }
 
