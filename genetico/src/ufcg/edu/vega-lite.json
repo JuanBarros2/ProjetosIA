@@ -1,13 +1,33 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
   "description": "Score por Gerações",
-  "data": {"url": "data/stocks.csv"},
+  "data": {
+    "url": "data/stocks.csv"
+  },
   "mark": "line",
   "width": 900,
   "height": 500,
   "encoding": {
-    "x": {"field": "date", "type": "quantitative", "axis": {"title": "Geração"}},
-    "y": {"field": "price", "type": "quantitative","axis": {"title": "Score"}},
-    "color":{"field": "price", "type": "nominal","axis": {"title": "Robo"}}
+    "x": {
+      "field": "date",
+      "type": "quantitative",
+      "axis": {
+        "title": "Geração"
+      }
+    },
+    "y": {
+      "field": "price",
+      "type": "quantitative",
+      "axis": {
+        "title": "Score"
+      }
+    },
+    "color": {
+      "field": "price",
+      "type": "nominal",
+      "axis": {
+        "title": "Robo"
+      }
+    }
   }
 }

@@ -1,4 +1,5 @@
 package ufcg.edu.commons;
+
 import java.util.Random;
 
 public final class Utils {
@@ -16,7 +17,7 @@ public final class Utils {
 
     public static int generateRandominInterval(int interval) { //Preciso de um nome melhor
         Random random = new Random();
-        int n = random.nextInt(2*interval + 1) - interval;
+        int n = random.nextInt(2 * interval + 1) - interval;
         return n;
     }
 

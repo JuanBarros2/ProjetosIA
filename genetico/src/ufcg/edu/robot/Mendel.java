@@ -56,24 +56,24 @@ public class Mendel extends Robot {
      */
     public void onScannedRobot(ScannedRobotEvent e) {
         // Replace the next line with any behavior you would like
-        fire(1);
+        fire(params.getFirePower().getValue()/10.0);
     }
 
     /**
      * onHitByBullet: What to do when you're hit by a bullet
      */
     public void onHitByBullet(HitByBulletEvent e) {
-        // Replace the next line with any behavior you would like
-        ahead(10);
-        turnGunRight(360);
+        Direction hitByBullet = params.getHitByBullet();
+        ahead(hitByBullet.getStep());
+        turnGunRight(hitByBullet.getDegrees());
     }
 
     /**
      * onHitWall: What to do when you hit a wall
      */
     public void onHitWall(HitWallEvent e) {
-        // Replace the next line with any behavior you would like
-        back(20);
-        turnLeft(90);
+        Direction onHit = params.getOnHitWall();
+        back(onHit.getStep());
+        turnLeft(onHit.getDegrees());
     }
 }

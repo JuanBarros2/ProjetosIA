@@ -11,15 +11,15 @@ public class GeneQuantitativeImplTest {
     private final Integer INITIAL_VALUE = 100;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         geneDirection = new GeneQuantitativeImpl(INITIAL_VALUE, 400);
     }
 
     @Test
     public void doMutation() {
         Integer aux = INITIAL_VALUE;
-        for(int i = 0; i != 1000; i++){
-            assertEquals(!geneDirection.getValue().equals(aux)+"", geneDirection.doMutation(), !geneDirection.getValue().equals(aux));
+        for (int i = 0; i != 1000; i++) {
+            assertEquals(!geneDirection.getValue().equals(aux) + "", geneDirection.doMutation(), !geneDirection.getValue().equals(aux));
             aux = geneDirection.getValue();
         }
     }
