@@ -1,6 +1,11 @@
 package ufcg.edu.commons;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import robocode.control.BattleSpecification;
 import robocode.control.BattlefieldSpecification;
@@ -57,4 +62,23 @@ public class Script implements FitnessFunction {
     public void writeGeneration(Integer score, Integer generation, String opponent) {
 
     }
+    
+    public static void writeFileParams(Params parametros) throws IOException {
+   	 FileWriter  file = new FileWriter("BattleParams.txt", true);
+        BufferedWriter output = new BufferedWriter(file);
+
+        output.write("Parametros: " + parametros);
+        
+        output.close();
+   }
+   
+   public static void readFileParams() throws IOException {
+   	   BufferedReader br;
+       br = new BufferedReader(new FileReader("BattleParams.txt"));
+       String line;
+       while((line = br.readLine()) != null) {
+           System.out.println(line);
+       }
+       br.close();
+   }
 }
