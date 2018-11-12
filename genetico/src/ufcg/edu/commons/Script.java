@@ -12,6 +12,7 @@ import ufcg.edu.genetic.GeneticAlgorithm;
 import ufcg.edu.genetic.OnFitnessComplete;
 
 import java.io.*;
+import java.util.Stack;
 
 public class Script implements FitnessFunction {
 
@@ -19,19 +20,28 @@ public class Script implements FitnessFunction {
     private RobocodeEngine engine;
     private IO<Params> io;
     private String filePath;
-    private static final int NUM_ROUNDS = 50;
+    private Stack<String> enemies;
+    private static final int NUM_ROUNDS = 5;
     private static final int NUM_GER = 200;
 
     public Script() {
     	this.filePath = "BattleParams.txt";
     	io = new IO<Params>(filePath);
         robocodeHome = new File("/home/juan/robocode"); // JUAN: "/home/juan/robocode"
+        enemies = new Stack<>();
+        enemies.push("sample.Walls");
+        enemies.push("sample.RamFire");
+        enemies.push("sample.Crazy");
         engine = new RobocodeEngine(robocodeHome);
     }
 
     private void battle() {
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(this);
-        geneticAlgorithm.runAlgorithm(NUM_GER);
+        while(!enemies.empty()){
+            System.out.println("Rodando para o robo inimigo: "+ enemies.peek());
+            GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(this);
+            geneticAlgorithm.runAlgorithm(NUM_GER);
+            enemies.pop();
+        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -44,7 +54,7 @@ public class Script implements FitnessFunction {
         IO<Params> file = new IO<Params>("./params.ser");
         boolean write = file.write(individual);
 
-        RobotSpecification[] robots = engine.getLocalRepository("sample.RamFire,sample.Crazy,sample.Walls,sample.Mendel");
+        RobotSpecification[] robots = engine.getLocalRepository(enemies.peek()+",sample.Mendel");
         BattlefieldSpecification battlefield = new BattlefieldSpecification();
         BattleSpecification specs = new BattleSpecification(NUM_ROUNDS, battlefield, robots);
 
@@ -81,6 +91,8 @@ public class Script implements FitnessFunction {
     	  writer.append(score.toString());
     	  writer.append(";");
     	  writer.flush();
+          writer.append(enemies.peek());
+          writer.append(";");
           writer.close();
     }
 
