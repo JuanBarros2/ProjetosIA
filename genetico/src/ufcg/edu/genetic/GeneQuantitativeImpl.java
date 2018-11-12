@@ -7,6 +7,7 @@ import java.util.Random;
 public class GeneQuantitativeImpl implements Gene<Integer> {
     private Integer value;
     public Integer MAX_VALUE;
+    public Integer MIN_VALUE;
     private String name;
     private Integer RATE_OF_RANDOM_MUTATION = Utils.LOW_MUTATION_RATE;
     private Integer RATE_OF_MEDIUM_MUTATION = Utils.MED_MUTATION_RATE;
@@ -23,22 +24,23 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
         this.MAX_VALUE = maxValue;
         this.value = 0;
         randomMutation();
-        this.name = "unknown";
     }
 
-    public GeneQuantitativeImpl(String name, Integer maxValue){
+
+    public GeneQuantitativeImpl(Integer maxValue, Integer minValue, Integer smallRange, Integer medRange){
         this.MAX_VALUE = maxValue;
-        this.value = 0;
-        randomMutation();
-        this.name = name;
+        this.MIN_VALUE = minValue;
+        this.SMALL_MUTATION_VARIATION = smallRange;
+        this.MED_MUTATION_VARIATION = medRange;
     }
+
 
     @Override
     public boolean doMutation() {
         Integer value = this.value;
         randomMutation();
-        mutationWithInterval(MED_MUTATION_VARIATION);
-        mutationWithInterval(SMALL_MUTATION_VARIATION);
+        mutationWithInterval(MED_MUTATION_VARIATION,RATE_OF_MEDIUM_MUTATION);
+        mutationWithInterval(SMALL_MUTATION_VARIATION,RATE_OF_SMALL_MUTATION);
         return !value.equals(this.value);
     }
 
@@ -49,8 +51,8 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
         }
     }
 
-    private void mutationWithInterval(Integer rate) {
-        if (Utils.willMutate(RATE_OF_MEDIUM_MUTATION)) {
+    private void mutationWithInterval(Integer rate, Integer mutation_rate) {
+        if (Utils.willMutate(mutation_rate)) {
             Integer change = Utils.generateRandominInterval(rate);
             setValue(this.value + change);
         }
@@ -65,18 +67,6 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
         newValue = Math.max(newValue, 0);
         newValue = Math.min(newValue, MAX_VALUE);
         this.value = newValue;
-    }
-
-    public String toString() {
-        return "FORCA " + this.value.toString();
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 
