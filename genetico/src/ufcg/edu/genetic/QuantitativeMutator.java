@@ -4,7 +4,7 @@ import ufcg.edu.commons.Utils;
 
 import java.util.Random;
 
-public class QuantitativeMutator {
+public class QuantitativeMutator implements Gene<Integer> {
     public Integer MAX_VALUE;
     public Integer MIN_VALUE;
     private Integer RATE_OF_RANDOM_MUTATION = Utils.LOW_MUTATION_RATE;
@@ -16,7 +16,7 @@ public class QuantitativeMutator {
     private Integer value;
     
 
-    public GeneQuantitativeImpl(Integer maxValue, Integer minValue, Integer smallRange, Integer medRange){
+    public QuantitativeMutator(Integer maxValue, Integer minValue, Integer smallRange, Integer medRange){
         this.MAX_VALUE = maxValue;
         this.MIN_VALUE = minValue;
         this.SMALL_MUTATION_VARIATION = smallRange;

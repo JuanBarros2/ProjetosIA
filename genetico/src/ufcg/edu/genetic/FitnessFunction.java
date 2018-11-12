@@ -13,4 +13,6 @@ public interface FitnessFunction{
      * @return valor inteiro correspondente ao score.
      */
     void getScore(Params individual, OnFitnessComplete listener);
+
+    void writeGeneration(Integer score, Integer generation, String opponent);
 }

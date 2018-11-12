@@ -1,17 +1,21 @@
 package ufcg.edu.test;
 
 import org.junit.Assert;
+import ufcg.edu.commons.Params;
 import ufcg.edu.genetic.FitnessFunction;
 import ufcg.edu.genetic.GeneticAlgorithm;
+import ufcg.edu.genetic.OnFitnessComplete;
 
 public class GeneticAlgorithmTest {
     private GeneticAlgorithm geneticAlgorithm;
     private FitnessFunction fitnessFunction = new FitnessFunction() {
+
         int count = 0;
         @Override
-        public Integer getScore(Individual individual) {
-            return ++count;
+        public void getScore(Params individual, OnFitnessComplete listener) {
+            listener.onComplete(0);
         }
+
     };
 
     @org.junit.Before

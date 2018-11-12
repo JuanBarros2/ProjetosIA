@@ -7,7 +7,6 @@ import java.util.Random;
 public class GeneQuantitativeImpl implements Gene<Integer> {
     private Integer value;
     public Integer MAX_VALUE;
-    private String name;
     private Integer RATE_OF_RANDOM_MUTATION = Utils.LOW_MUTATION_RATE;
     private Integer RATE_OF_MEDIUM_MUTATION = Utils.MED_MUTATION_RATE;
     private Integer RATE_OF_SMALL_MUTATION = Utils.HIGH_MUTATION_RATE;
@@ -23,14 +22,6 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
         this.MAX_VALUE = maxValue;
         this.value = 0;
         randomMutation();
-        this.name = "unknown";
-    }
-
-    public GeneQuantitativeImpl(String name, Integer maxValue){
-        this.MAX_VALUE = maxValue;
-        this.value = 0;
-        randomMutation();
-        this.name = name;
     }
 
     @Override
@@ -70,16 +61,5 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
     public String toString() {
         return "FORCA " + this.value.toString();
     }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-
 
 }
