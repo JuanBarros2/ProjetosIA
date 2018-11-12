@@ -19,8 +19,8 @@ public class Script implements FitnessFunction {
     private RobocodeEngine engine;
     private IO<Params> io;
     private String filePath;
-    private static final int NUM_ROUNDS = 1;
-    private static final int NUM_GER = 100;
+    private static final int NUM_ROUNDS = 50;
+    private static final int NUM_GER = 200;
 
     public Script() {
     	this.filePath = "BattleParams.txt";
@@ -56,9 +56,7 @@ public class Script implements FitnessFunction {
                 for (BattleResults result : event.getSortedResults()) {
                     System.out.println(result.getScore() + " - " + result.getTeamLeaderName());
                 }
-                System.out.println("done");
                 listener.onComplete(11);
-                System.out.println("SHOW2");
             }
         });
         engine.setVisible(false);
