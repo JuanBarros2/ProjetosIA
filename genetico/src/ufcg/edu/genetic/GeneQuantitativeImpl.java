@@ -8,7 +8,6 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
     private Integer value;
     public Integer MAX_VALUE;
     public Integer MIN_VALUE;
-    private String name;
     private Integer RATE_OF_RANDOM_MUTATION = Utils.LOW_MUTATION_RATE;
     private Integer RATE_OF_MEDIUM_MUTATION = Utils.MED_MUTATION_RATE;
     private Integer RATE_OF_SMALL_MUTATION = Utils.HIGH_MUTATION_RATE;
@@ -68,8 +67,5 @@ public class GeneQuantitativeImpl implements Gene<Integer> {
         newValue = Math.min(newValue, MAX_VALUE);
         this.value = newValue;
     }
-
-
-
 
 }

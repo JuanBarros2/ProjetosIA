@@ -52,4 +52,9 @@ public class Script implements FitnessFunction {
         engine.setVisible(false);
         engine.runBattle(specs, true);
     }
+
+    @Override
+    public void writeGeneration(Integer score, Integer generation, String opponent) {
+
+    }
 }
