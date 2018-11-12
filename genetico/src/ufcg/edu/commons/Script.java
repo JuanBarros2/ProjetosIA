@@ -41,6 +41,9 @@ public class Script implements FitnessFunction {
 
     @Override
     public void getScore(Params individual, OnFitnessComplete listener) {
+        IO<Params> file = new IO<Params>("Robo.txt");
+        boolean write = file.write(individual);
+
         RobotSpecification[] robots = engine.getLocalRepository("sample.RamFire,sample.Crazy,sample.Walls,sample.Mendel");
         BattlefieldSpecification battlefield = new BattlefieldSpecification();
         BattleSpecification specs = new BattleSpecification(NUM_ROUNDS, battlefield, robots);
