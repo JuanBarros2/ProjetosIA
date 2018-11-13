@@ -3,19 +3,19 @@ package ufcg.test;
 import org.junit.Assert;
 import org.junit.Test;
 import ufcg.commons.IO;
+import ufcg.commons.Params;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class IOTest {
-    private IO<List> io;
-    private List<String> persist;
+    private IO<Params> io;
+    private Params persist;
 
     @org.junit.Before
     public void setUp() {
-        String FILEPATH = "resposta.txt";
-        io = new IO<>(FILEPATH);
-        persist = Arrays.asList("Buenos Aires", "Córdoba", "La Plata");
+        io = new IO<>();
+        persist = new Params();
     }
 
     @org.junit.After
@@ -29,6 +29,7 @@ public class IOTest {
 
     @Test
     public void testRead() {
+        Params params = io.read();
         Assert.assertEquals(io.read(), persist);
     }
 

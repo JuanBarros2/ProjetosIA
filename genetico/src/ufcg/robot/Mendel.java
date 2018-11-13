@@ -20,14 +20,12 @@ public class Mendel extends Robot {
      */
     public void run() {
         IO<Params> io = new IO();
-        
         params = io.read();
 
-        new Scan().start();
         int currentMov = 0;
         while (true) {
             Direction mov = params.getDefaultMovement().get(currentMov);
-            turnRight(mov.getDegrees());
+            turnRight(mov.getDegrees()-180);
             ahead(mov.getStep());
             currentMov++;
             currentMov %= params.getDefaultMovement().size();
@@ -40,7 +38,7 @@ public class Mendel extends Robot {
             List<Direction> scans = params.getDefaultScan();
             while (true) {
                 Direction mov = scans.get(currentScan);
-                turnRadarRight(mov.getDegrees());
+                turnRadarRight(mov.getDegrees() -180);
                 currentScan++;
                 currentScan %= scans.size();
             }

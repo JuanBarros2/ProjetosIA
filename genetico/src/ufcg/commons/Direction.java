@@ -11,8 +11,8 @@ public class Direction implements Serializable {
 
 
     public Direction() {
-        this.degress = new GeneQuantitativeImpl(359,0,15,70);
-        this.step = new GeneQuantitativeImpl(100,0,5,40);
+        this.degress = new GeneQuantitativeImpl(359,1,15,70);
+        this.step = new GeneQuantitativeImpl(100,1,5,40);
     }
 
     public Direction(GeneQuantitativeImpl degress, GeneQuantitativeImpl prob) {
