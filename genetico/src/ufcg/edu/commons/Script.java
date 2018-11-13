@@ -54,7 +54,7 @@ public class Script implements FitnessFunction {
         IO<Params> file = new IO<Params>("./params.ser");
         boolean write = file.write(individual);
 
-        RobotSpecification[] robots = engine.getLocalRepository(enemies.peek()+",sample.Mendel");
+        RobotSpecification[] robots = engine.getLocalRepository(enemies.peek()+",ufcg.edu.robot.Mendel");
         BattlefieldSpecification battlefield = new BattlefieldSpecification();
         BattleSpecification specs = new BattleSpecification(NUM_ROUNDS, battlefield, robots);
 
@@ -64,9 +64,11 @@ public class Script implements FitnessFunction {
                 super.onBattleCompleted(event);
                 System.out.println("Batalha finalizada");
                 for (BattleResults result : event.getSortedResults()) {
-                    if(result.getTeamLeaderName().equals("sample.Mendel")){
+                    System.out.println("Nome: " + result.getTeamLeaderName());
+                    if(result.getTeamLeaderName().equals("ufcg.edu.robot.Mendel")){
                         listener.onComplete(result.getScore());
                     }
+                    listener.onComplete(0);
                 }
             }
         });
@@ -78,12 +80,12 @@ public class Script implements FitnessFunction {
     
     @Override
     public void writeGeneration(Integer score, Integer generation) {
-        System.out.println("Registrando geração" + generation + " SCORE: " + score);
+        System.out.println("Registrando geração " + generation + " SCORE: " + score);
     }
     
     public void writeCsv(Integer score, Integer generation) throws IOException {
-    
-    	  FileWriter writer = new FileWriter("Gen.csv");
+
+    	  FileWriter writer = new FileWriter("Gen.csv", true);
     	  writer.append(generation.toString());
     	  writer.append(";");
     	  writer.append(score.toString());

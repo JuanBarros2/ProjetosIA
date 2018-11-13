@@ -58,7 +58,7 @@ public class GeneticAlgorithm {
             }
 
             this.generationCount++;
-            fitnessFunction.writeGeneration(population[0].getScore(), generationCount);
+            this.fitnessFunction.writeGeneration(population[0].getScore(), generationCount);
         }
 
         System.out.println("Algoritmo finalizado com os parametros finais salvos em arquivo");
@@ -76,7 +76,6 @@ public class GeneticAlgorithm {
      */
     public Params getBest() {
         Params result = population[0];
-        System.out.println("As saídas são: " + population[0].getScore() + " " + population[1].getScore());
         if(population[0].compareTo(population[1]) < 0){
             result = population[1];
         }
