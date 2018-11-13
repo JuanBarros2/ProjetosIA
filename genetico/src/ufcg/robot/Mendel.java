@@ -4,6 +4,7 @@ import ufcg.commons.Direction;
 import ufcg.commons.IO;
 import ufcg.commons.Params;
 
+import java.io.*;
 import java.util.List;
 
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Mendel - a robot by a group for the project of artificial intelligence class
  * in 2018.2, at UFCG.
  */
-public class Mendel extends Robot {
+public class Mendel extends AdvancedRobot {
 
     Params params;
 
@@ -21,11 +22,10 @@ public class Mendel extends Robot {
     public void run() {
         IO<Params> io = new IO();
         params = io.read();
-
         int currentMov = 0;
         while (true) {
             Direction mov = params.getDefaultMovement().get(currentMov);
-            turnRight(mov.getDegrees()-180);
+            turnRight(mov.getDegrees() -180);
             ahead(mov.getStep());
             currentMov++;
             currentMov %= params.getDefaultMovement().size();

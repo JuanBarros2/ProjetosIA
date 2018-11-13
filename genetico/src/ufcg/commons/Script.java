@@ -21,8 +21,8 @@ public class Script implements FitnessFunction {
     private IO<Params> io;
     private String filePath;
     private Stack<String> enemies;
-    private static final int NUM_ROUNDS = 1;
-    private static final int NUM_GER = 3;
+    private static final int NUM_ROUNDS = 10;
+    private static final int NUM_GER = 30;
 
     public Script() {
     	this.filePath = "BattleParams.txt";
@@ -65,7 +65,7 @@ public class Script implements FitnessFunction {
                 System.out.println("Batalha finalizada");
                 for (BattleResults result : event.getSortedResults()) {
                     System.out.println("Nome: " + result.getTeamLeaderName());
-                    if (result.getTeamLeaderName().equals("ufcg.robot.Mendel")) {
+                    if (result.getTeamLeaderName().equals("ufcg.robot.Mendel*")) {
                         listener.onComplete(result.getScore());
                     }
                 }

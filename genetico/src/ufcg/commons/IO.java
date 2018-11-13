@@ -16,7 +16,7 @@ public class IO<T> {
     public boolean write(T t) {
         ObjectOutputStream objectOut = null;
         try {
-            objectOut = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filePath)));
+            objectOut = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filePath, false)));
             objectOut.writeObject(t);
             objectOut.close();
             return true;
