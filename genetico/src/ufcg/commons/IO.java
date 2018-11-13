@@ -1,4 +1,4 @@
-package ufcg.edu.commons;
+package ufcg.commons;
 
 import java.io.*;
 
@@ -7,6 +7,10 @@ public class IO<T> {
 
     public IO(String filePath) {
         this.filePath = filePath;
+    }
+
+    public IO(){
+        filePath = "/home/juan/robo.txt";
     }
 
     public boolean write(T t) {

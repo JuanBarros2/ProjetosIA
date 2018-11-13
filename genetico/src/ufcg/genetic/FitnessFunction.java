@@ -1,6 +1,6 @@
-package ufcg.edu.genetic;
+package ufcg.genetic;
 
-import ufcg.edu.commons.Params;
+import ufcg.commons.Params;
 
 /**
  * Representa uma função que será chamada para avaliar os indivíduos.

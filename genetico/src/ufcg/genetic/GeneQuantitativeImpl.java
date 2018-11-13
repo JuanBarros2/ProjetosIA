@@ -1,6 +1,6 @@
-package ufcg.edu.genetic;
+package ufcg.genetic;
 
-import ufcg.edu.commons.Utils;
+import ufcg.commons.Utils;
 
 import java.util.Random;
 

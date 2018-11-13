@@ -1,8 +1,8 @@
-package ufcg.edu.test;
+package ufcg.test;
 
 import org.junit.Before;
 import org.junit.Test;
-import ufcg.edu.genetic.GeneQuantitativeImpl;
+import ufcg.genetic.GeneQuantitativeImpl;
 
 import static org.junit.Assert.*;
 

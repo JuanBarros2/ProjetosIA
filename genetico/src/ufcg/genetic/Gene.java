@@ -1,4 +1,4 @@
-package ufcg.edu.genetic;
+package ufcg.genetic;
 
 import java.io.Serializable;
 

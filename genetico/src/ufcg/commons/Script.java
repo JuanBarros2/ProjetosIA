@@ -1,4 +1,4 @@
-package ufcg.edu.commons;
+package ufcg.commons;
 
 import robocode.BattleResults;
 import robocode.control.BattleSpecification;
@@ -7,9 +7,9 @@ import robocode.control.RobocodeEngine;
 import robocode.control.RobotSpecification;
 import robocode.control.events.BattleAdaptor;
 import robocode.control.events.BattleCompletedEvent;
-import ufcg.edu.genetic.FitnessFunction;
-import ufcg.edu.genetic.GeneticAlgorithm;
-import ufcg.edu.genetic.OnFitnessComplete;
+import ufcg.genetic.FitnessFunction;
+import ufcg.genetic.GeneticAlgorithm;
+import ufcg.genetic.OnFitnessComplete;
 
 import java.io.*;
 import java.util.Stack;
@@ -51,10 +51,10 @@ public class Script implements FitnessFunction {
 
     @Override
     public void getScore(Params individual, OnFitnessComplete listener) {
-        IO<Params> file = new IO<Params>("./params.ser");
+        IO<Params> file = new IO<Params>();
         boolean write = file.write(individual);
 
-        RobotSpecification[] robots = engine.getLocalRepository(enemies.peek()+",ufcg.edu.robot.Mendel");
+        RobotSpecification[] robots = engine.getLocalRepository(enemies.peek()+",ufcg.robot.Mendel");
         BattlefieldSpecification battlefield = new BattlefieldSpecification();
         BattleSpecification specs = new BattleSpecification(NUM_ROUNDS, battlefield, robots);
 
@@ -65,10 +65,9 @@ public class Script implements FitnessFunction {
                 System.out.println("Batalha finalizada");
                 for (BattleResults result : event.getSortedResults()) {
                     System.out.println("Nome: " + result.getTeamLeaderName());
-                    if(result.getTeamLeaderName().equals("ufcg.edu.robot.Mendel")){
+                    if (result.getTeamLeaderName().equals("ufcg.robot.Mendel")) {
                         listener.onComplete(result.getScore());
                     }
-                    listener.onComplete(0);
                 }
             }
         });

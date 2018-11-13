@@ -1,4 +1,4 @@
-package ufcg.edu.commons;
+package ufcg.commons;
 
 import java.util.Random;
 

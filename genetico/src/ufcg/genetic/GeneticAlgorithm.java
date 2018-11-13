@@ -1,6 +1,6 @@
-package ufcg.edu.genetic;
+package ufcg.genetic;
 
-import ufcg.edu.commons.Params;
+import ufcg.commons.Params;
 
 public class GeneticAlgorithm {
 

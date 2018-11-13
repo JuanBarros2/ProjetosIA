@@ -1,16 +1,11 @@
-package ufcg.edu.robot;
-
-import robocode.HitByBulletEvent;
-import robocode.HitWallEvent;
-import robocode.Robot;
-import robocode.ScannedRobotEvent;
-import ufcg.edu.commons.Direction;
-import ufcg.edu.commons.IO;
-import ufcg.edu.commons.Params;
+package ufcg.robot;
+import robocode.*;
+import ufcg.commons.Direction;
+import ufcg.commons.IO;
+import ufcg.commons.Params;
 
 import java.util.List;
 
-// API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 /**
  * Mendel - a robot by a group for the project of artificial intelligence class
@@ -24,7 +19,8 @@ public class Mendel extends Robot {
      * Default behavior
      */
     public void run() {
-        IO<Params> io = new IO("./params.ser");
+        IO<Params> io = new IO();
+        
         params = io.read();
 
         new Scan().start();

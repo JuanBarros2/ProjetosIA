@@ -1,10 +1,10 @@
-package ufcg.edu.test;
+package ufcg.test;
 
 import org.junit.Assert;
-import ufcg.edu.commons.Params;
-import ufcg.edu.genetic.FitnessFunction;
-import ufcg.edu.genetic.GeneticAlgorithm;
-import ufcg.edu.genetic.OnFitnessComplete;
+import ufcg.commons.Params;
+import ufcg.genetic.FitnessFunction;
+import ufcg.genetic.GeneticAlgorithm;
+import ufcg.genetic.OnFitnessComplete;
 
 import java.util.Random;
 

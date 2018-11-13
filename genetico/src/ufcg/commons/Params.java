@@ -1,6 +1,6 @@
-package ufcg.edu.commons;
+package ufcg.commons;
 
-import ufcg.edu.genetic.GeneQuantitativeImpl;
+import ufcg.genetic.GeneQuantitativeImpl;
 
 import java.io.Serializable;
 import java.util.Arrays;
