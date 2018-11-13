@@ -13,33 +13,16 @@ public class GeneticAlgorithm {
     public GeneticAlgorithm(FitnessFunction fitnessFunction) {
         this.population = new Params[2];
         this.population[0] = new Params();
+        this.fitnessFunction = fitnessFunction;
+        getScore(population[0]);
         this.population[1] = this.population[0].clone();
         this.generationCount = 0;
-        this.fitnessFunction = fitnessFunction;
+
     }
 
-    /**
-     * Realiza a avaliação da população de acordo com a população
-     * disponível. Para isso, ele roda a função fitness em todos os
-     * indivíduos da população
-     *
-     * @return indivíduo com melhor pontuação.
-     */
-    synchronized private Params getBestIndividual(){
-        isRunning = true;
-        this.fitnessFunction.getScore(population[1], new OnFitnessComplete() {
-            @Override
-            public void onComplete(Integer score) {
-                System.out.println("Algoritmo genético recebe score: "+ score);
-                isRunning = false;
-                population[1].setScore(score);
-            }
-        });
-        System.out.println("Aguardando resposta do robocode");
-        while(isRunning){
-            continue;
-        }
-        return this.getBest();
+
+    private void getScore(Params p) {
+        p.setScore(this.fitnessFunction.getScore(p));
     }
 
     /**
@@ -48,17 +31,17 @@ public class GeneticAlgorithm {
     public void runAlgorithm(Integer generationCountMax){
         System.out.println("Rodando algoritmo genético para "+generationCountMax +" gerações");
         while(generationCount < generationCountMax){
-            System.out.println("Iniciando geração " + generationCount);
-            population[0] = getBestIndividual();
 
+            System.out.println("Iniciando geração " + generationCount);
             population[1] = population[0].clone();
 
             while (!population[1].mutation()) {
                 continue;
             }
-
-            this.generationCount++;
+            getScore(population[1]);
+            population[0] = getBest();
             this.fitnessFunction.writeGeneration(population[0].getScore(), generationCount);
+            this.generationCount++;
         }
 
         System.out.println("Algoritmo finalizado com os parametros finais salvos em arquivo");

@@ -7,11 +7,13 @@ import robocode.control.RobocodeEngine;
 import robocode.control.RobotSpecification;
 import robocode.control.events.BattleAdaptor;
 import robocode.control.events.BattleCompletedEvent;
+import robocode.control.events.BattleErrorEvent;
 import ufcg.genetic.FitnessFunction;
 import ufcg.genetic.GeneticAlgorithm;
-import ufcg.genetic.OnFitnessComplete;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Stack;
 
 public class Script implements FitnessFunction {
@@ -23,16 +25,17 @@ public class Script implements FitnessFunction {
     private Stack<String> enemies;
     private static final int NUM_ROUNDS = 10;
     private static final int NUM_GER = 30;
+    private BattleObserver battleObserver;
 
     public Script() {
     	this.filePath = "BattleParams.txt";
     	io = new IO<Params>(filePath);
-        robocodeHome = new File("/home/juan/robocode"); // JUAN: "/home/juan/robocode"
+        robocodeHome = new File("/home/ignacio/robocode"); // JUAN: "/home/juan/robocode"
         enemies = new Stack<>();
         enemies.push("sample.Walls");
         enemies.push("sample.RamFire");
         enemies.push("sample.Crazy");
-        engine = new RobocodeEngine(robocodeHome);
+        battleObserver = new BattleObserver();
     }
 
     private void battle() {
@@ -50,38 +53,37 @@ public class Script implements FitnessFunction {
     }
 
     @Override
-    public void getScore(Params individual, OnFitnessComplete listener) {
+    public int getScore(Params individual) {
+        this.engine = new RobocodeEngine(robocodeHome);
         IO<Params> file = new IO<Params>();
         boolean write = file.write(individual);
-
-        RobotSpecification[] robots = engine.getLocalRepository(enemies.peek()+",ufcg.robot.Mendel");
+        String selected_robots = enemies.peek() + ",ufcg.robot.Mendel";
+        RobotSpecification[] robots = engine.getLocalRepository(selected_robots);
+//X
         BattlefieldSpecification battlefield = new BattlefieldSpecification();
         BattleSpecification specs = new BattleSpecification(NUM_ROUNDS, battlefield, robots);
-
-        engine.addBattleListener(new BattleAdaptor() {
-            @Override
-            public void onBattleCompleted(BattleCompletedEvent event) {
-                super.onBattleCompleted(event);
-                System.out.println("Batalha finalizada");
-                for (BattleResults result : event.getSortedResults()) {
-                    System.out.println("Nome: " + result.getTeamLeaderName());
-                    if (result.getTeamLeaderName().equals("ufcg.robot.Mendel*")) {
-                        listener.onComplete(result.getScore());
-                    }
-                }
-            }
-        });
+        engine.addBattleListener(battleObserver);
         engine.setVisible(false);
         System.out.println("Iniciando batalha");
         engine.runBattle(specs, true);
+        BattleResults[] results = battleObserver.getResults();
+        int ret = 0;
+        for (BattleResults result : results) {
+            System.out.println("Nome: " + result.getTeamLeaderName());
+            if (result.getTeamLeaderName().equals("ufcg.robot.Mendel*")) {
+                ret = result.getScore();
+            }
+
+        }
+        return ret;
     }
 
     
     @Override
     public void writeGeneration(Integer score, Integer generation) {
-        System.out.println("Registrando geração " + generation + " SCORE: " + score);
+        System.out.println("Registrando geração " + (generation-1) + " SCORE: " + score);
         try {
-			writeCsv(score, generation);
+			writeCsv(score, generation-1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -90,13 +92,27 @@ public class Script implements FitnessFunction {
     
     public void writeCsv(Integer score, Integer generation) throws IOException {
     	  FileWriter writer = new FileWriter("Gen.csv", true);
-    	  writer.append(generation.toString());
-    	  writer.append(";");
-    	  writer.append(score.toString());
-    	  writer.append(";");
-          writer.append(enemies.peek());
-          writer.append(";");
-          writer.append("\n");
+    	  writer.append(generation.toString() + "," +score.toString()+","+enemies.peek()+"\n");
           writer.close();
     }
+}
+
+
+class BattleObserver extends BattleAdaptor {
+
+    robocode.BattleResults[] results;
+
+    public void onBattleCompleted(BattleCompletedEvent e) {
+        System.out.println("Acabou a batalha");
+        results = e.getIndexedResults();
+        }
+
+    public void onBattleError(BattleErrorEvent e){
+        System.out.println("Error running battle: " + e.getError());
+    }
+
+    public BattleResults[] getResults(){
+        return results;
+    }
+
 }

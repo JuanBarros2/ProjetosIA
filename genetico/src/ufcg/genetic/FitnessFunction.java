@@ -13,7 +13,7 @@ public interface FitnessFunction {
      * @param individual que será avaliado pela função
      * @return valor inteiro correspondente ao score.
      */
-    void getScore(Params individual, OnFitnessComplete listener);
+    int getScore(Params individual);
 
     void writeGeneration(Integer score, Integer generation);
 }

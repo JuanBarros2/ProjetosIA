@@ -1,10 +1,12 @@
 package ufcg.robot;
-import robocode.*;
+import robocode.AdvancedRobot;
+import robocode.HitByBulletEvent;
+import robocode.HitWallEvent;
+import robocode.ScannedRobotEvent;
 import ufcg.commons.Direction;
 import ufcg.commons.IO;
 import ufcg.commons.Params;
 
-import java.io.*;
 import java.util.List;
 
 

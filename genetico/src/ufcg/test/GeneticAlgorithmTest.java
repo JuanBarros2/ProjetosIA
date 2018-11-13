@@ -4,7 +4,6 @@ import org.junit.Assert;
 import ufcg.commons.Params;
 import ufcg.genetic.FitnessFunction;
 import ufcg.genetic.GeneticAlgorithm;
-import ufcg.genetic.OnFitnessComplete;
 
 import java.util.Random;
 
@@ -16,14 +15,8 @@ public class GeneticAlgorithmTest {
         int count = 0;
 
         @Override
-        public void getScore(Params individual, OnFitnessComplete listener) {
-            new Thread(new Runnable() {
-                @Override
-                synchronized public void run() {
-                    System.out.println("Função fitness rodada com sucesso");
-                    listener.onComplete(random.nextInt(500));
-                }
-            }).start();
+        public int getScore(Params individual) {
+            return random.nextInt(500);
         }
 
         @Override

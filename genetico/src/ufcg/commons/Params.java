@@ -32,25 +32,13 @@ public class Params implements Serializable, Comparable<Params> {
         return onHitWall;
     }
 
-    public void setOnHitWall(Direction onHitWall) {
-        this.onHitWall = onHitWall;
-    }
-
     public Direction getHitByBullet() {
         return hitByBullet;
-    }
-
-    public void setHitByBullet(Direction hitByBullet) {
-        this.hitByBullet = hitByBullet;
     }
 
 
     public GeneQuantitativeImpl getFirePower() {
         return firePower;
-    }
-
-    public void setFirePower(GeneQuantitativeImpl firePower) {
-        this.firePower = firePower;
     }
 
 
