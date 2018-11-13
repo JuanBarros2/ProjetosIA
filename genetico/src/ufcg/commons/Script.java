@@ -18,21 +18,16 @@ public class Script implements FitnessFunction {
 	
     private File robocodeHome;
     private RobocodeEngine engine;
-    private IO<Params> io;
-    private String filePath;
     private Stack<String> enemies;
-    private static final int NUM_ROUNDS = 10;
+    private static final int NUM_ROUNDS = 1;
     private static final int NUM_GER = 30;
 
     public Script() {
-    	this.filePath = "BattleParams.txt";
-    	io = new IO<Params>(filePath);
         robocodeHome = new File("/home/juan/robocode"); // JUAN: "/home/juan/robocode"
         enemies = new Stack<>();
         enemies.push("sample.Walls");
         enemies.push("sample.RamFire");
         enemies.push("sample.Crazy");
-        engine = new RobocodeEngine(robocodeHome);
     }
 
     private void battle() {
@@ -50,10 +45,12 @@ public class Script implements FitnessFunction {
     }
 
     @Override
-    public void getScore(Params individual, OnFitnessComplete listener) {
+    public Integer getScore(Params individual, OnFitnessComplete listener) {
         IO<Params> file = new IO<Params>();
         boolean write = file.write(individual);
+        final Integer[] score = {0};
 
+        engine = new RobocodeEngine(robocodeHome);
         RobotSpecification[] robots = engine.getLocalRepository(enemies.peek()+",ufcg.robot.Mendel");
         BattlefieldSpecification battlefield = new BattlefieldSpecification();
         BattleSpecification specs = new BattleSpecification(NUM_ROUNDS, battlefield, robots);
@@ -64,9 +61,9 @@ public class Script implements FitnessFunction {
                 super.onBattleCompleted(event);
                 System.out.println("Batalha finalizada");
                 for (BattleResults result : event.getSortedResults()) {
-                    System.out.println("Nome: " + result.getTeamLeaderName());
                     if (result.getTeamLeaderName().equals("ufcg.robot.Mendel*")) {
-                        listener.onComplete(result.getScore());
+                        System.out.println("Score: " + result.getScore());
+                        score[0] = result.getScore();
                     }
                 }
             }
@@ -74,6 +71,8 @@ public class Script implements FitnessFunction {
         engine.setVisible(false);
         System.out.println("Iniciando batalha");
         engine.runBattle(specs, true);
+
+        return score[0];
     }
 
     

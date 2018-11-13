@@ -10,12 +10,11 @@ import java.util.List;
 
 public class IOTest {
     private IO<Params> io;
-    private Params persist;
+    private Params persist = new Params();
 
     @org.junit.Before
     public void setUp() {
         io = new IO<>();
-        persist = new Params();
     }
 
     @org.junit.After

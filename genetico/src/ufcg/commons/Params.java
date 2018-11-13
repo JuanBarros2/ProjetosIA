@@ -27,6 +27,14 @@ public class Params implements Serializable, Comparable<Params> {
         this.hitByBullet = new Direction();
     }
 
+    public Params(List<Direction> defaultMovement, Integer score, GeneQuantitativeImpl firePower, List<Direction> defaultScan, Direction onHitWall, Direction hitByBullet) {
+        this.defaultMovement = defaultMovement;
+        this.score = score;
+        this.firePower = firePower;
+        this.defaultScan = defaultScan;
+        this.onHitWall = onHitWall;
+        this.hitByBullet = hitByBullet;
+    }
 
     public Direction getOnHitWall() {
         return onHitWall;

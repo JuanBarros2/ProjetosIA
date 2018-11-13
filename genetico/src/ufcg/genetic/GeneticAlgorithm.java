@@ -25,20 +25,9 @@ public class GeneticAlgorithm {
      *
      * @return indivíduo com melhor pontuação.
      */
-    synchronized private Params getBestIndividual(){
+    private Params getBestIndividual(){
         isRunning = true;
-        this.fitnessFunction.getScore(population[1], new OnFitnessComplete() {
-            @Override
-            public void onComplete(Integer score) {
-                System.out.println("Algoritmo genético recebe score: "+ score);
-                isRunning = false;
-                population[1].setScore(score);
-            }
-        });
-        System.out.println("Aguardando resposta do robocode");
-        while(isRunning){
-            continue;
-        }
+        population[1].setScore(this.fitnessFunction.getScore(population[1], null));
         return this.getBest();
     }
 

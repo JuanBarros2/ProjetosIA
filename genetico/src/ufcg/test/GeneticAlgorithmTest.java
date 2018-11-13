@@ -16,7 +16,7 @@ public class GeneticAlgorithmTest {
         int count = 0;
 
         @Override
-        public void getScore(Params individual, OnFitnessComplete listener) {
+        public Integer getScore(Params individual, OnFitnessComplete listener) {
             new Thread(new Runnable() {
                 @Override
                 synchronized public void run() {
@@ -24,6 +24,7 @@ public class GeneticAlgorithmTest {
                     listener.onComplete(random.nextInt(500));
                 }
             }).start();
+            return null;
         }
 
         @Override
