@@ -1,11 +1,14 @@
 package ufcg.test;
 
 import org.junit.Assert;
+import org.junit.Test;
 import ufcg.commons.Params;
 import ufcg.genetic.FitnessFunction;
 import ufcg.genetic.GeneticAlgorithm;
 import ufcg.genetic.OnFitnessComplete;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class GeneticAlgorithmTest {
@@ -17,25 +20,37 @@ public class GeneticAlgorithmTest {
 
         @Override
         public Integer getScore(Params individual, OnFitnessComplete listener) {
-            new Thread(new Runnable() {
-                @Override
-                synchronized public void run() {
-                    System.out.println("Função fitness rodada com sucesso");
-                    listener.onComplete(random.nextInt(500));
-                }
-            }).start();
-            return null;
+            count++;
+            return random.nextInt(8000);
         }
 
         @Override
         public void writeGeneration(Integer score, Integer generation) {
+
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter("Gen.csv", true);
+                writer.append(generation.toString());
+                writer.append(",");
+                writer.append(score.toString());
+                writer.append(",");
+                writer.append("\n");
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     };
 
     @org.junit.Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.geneticAlgorithm = new GeneticAlgorithm(fitnessFunction);
+    }
+
+    @Test
+    public void geraDados(){
+        geneticAlgorithm.runAlgorithm(100);
     }
 
 
