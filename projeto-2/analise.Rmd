@@ -3,7 +3,44 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-```{r}
+```{r importandoDados}
 library(tidyverse)
-dados <- read_csv("true_car_listings.csv")
+library(caret)
+
+dadosBrutos <- read.csv("true_car_listings.csv")
+particao <- createDataPartition(dadosBrutos$Price, p = .998, 
+                                     list = FALSE, 
+                                     times = 1)
+
+dadosDisponiveis <- dadosBrutos[-particao,] %>% 
+  select(-Vin)
+```
+
+
+```{r treinandoModelos}
+config <- trainControl(method = "cv", number = 5 , verboseIter = TRUE )
+
+linearRegressionModel <- train(Price ~ ., 
+                          data = dadosDisponiveis , 
+                          method = "lm", 
+                          preProcess = c("center","scale"),
+                          trControl = config)
+
+knnModel <- train(Price ~ .,
+                     data = dadosDisponiveis,
+                     method = "knn",
+                     preProcess = c("center","scale"),
+                     trControl = config)
+
+xgbModel <- train(Price ~ .,
+                     data = dadosDisponiveis,
+                     method = "xgbLinear",
+                     preProcess = c("center","scale"),
+                     trControl = config)
+
+id3Model <- train(Price ~ .,
+                     data = dadosDisponiveis,
+                     method = "rpart",
+                     preProcess = c("center","scale"),
+                     trControl = config)
 ```
