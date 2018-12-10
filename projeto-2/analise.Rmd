@@ -13,7 +13,7 @@ particao <- createDataPartition(dadosBrutos$Price, p = .998,
                                      times = 1)
 
 dadosDisponiveis <- dadosBrutos[-particao,] %>% 
-  select(-Vin)
+  select(-Vin,-City,-Make)
 ```
 
 
