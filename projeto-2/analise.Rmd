@@ -14,7 +14,7 @@ library(tidyverse)
 library(caret)
 
 dadosBrutos <- read.csv("true_car_listings.csv")
-particao <- createDataPartition(dadosBrutos$Price, p = .998, 
+particao <- createDataPartition(dadosBrutos$Price, p = .999, 
                                      list = FALSE, 
                                      times = 1)
 
@@ -73,13 +73,8 @@ summary(resamples(list(LM = linearRegressionModel, ID3= id3Model, XGB = xgbModel
 
 #### Regressão Linear
 ```{r}
-p1 = ggplot(linearRegressionModel, aes(.fitted, .resid)) +
-    geom_point()
-p1 = p1 + geom_hline(yintercept=0, col="red", linetype="dashed")
-p1 = p1 + xlab("Valores ajustados") + ylab("Resíduos")
-p1 = p1 + ggtitle("Gráfico de Resíduos vs Ajustamento") + 
-    theme_bw()
-p1
+
+linearRegressionModel
 
 ```
 
@@ -112,4 +107,16 @@ xgbPredic <- predict(xgbModel, dadosValidacao)
 
 ```{r}
 postResample(pred = knnPredic, obs = dadosTeste$Price)
+```
+
+```{r}
+postResample(pred = regLinearPredic, obs = dadosTeste$Price)
+```
+
+```{r}
+postResample(pred = id3Predic, obs = dadosTeste$Price)
+```
+
+```{r}
+postResample(pred = xgbPredic, obs = dadosTeste$Price)
 ```
