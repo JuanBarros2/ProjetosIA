@@ -1,6 +1,8 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  html_document: default
+  html_notebook: default
 ---
 
 # Predição de preços de automóveis com Regressão Linear, ID3, KNN e XGB
@@ -14,14 +16,14 @@ library(tidyverse)
 library(caret)
 
 dadosBrutos <- read.csv("true_car_listings.csv")
-particao <- createDataPartition(dadosBrutos$Price, p = .999, 
+particao <- createDataPartition(dadosBrutos$Price, p = .99, 
                                      list = FALSE, 
                                      times = 1)
 
 dadosDisponiveis <- dadosBrutos[-particao,] %>% 
   select(-Vin, -Make, -City, -State)
 
-particaoTT <- createDataPartition(dadosDisponiveis$Price, p = .2, 
+particaoTT <- createDataPartition(dadosDisponiveis$Price, p = .8, 
                                      list = FALSE, 
                                      times = 1)
 dadosTreino <- dadosDisponiveis[particaoTT,]
@@ -34,8 +36,8 @@ Para treinar os modelos descritos, realizaremos uma validação cruzada com 5-fo
 utilizaremos "Price" como variável alvo para nossos modelos aprenderem. Além disso, utilizaremos o pre-processamento do caret que deixa
 os valores em uma mesma escala.
 
-```{r treinandoModelos}
-config <- trainControl(method = "repeatedcv", number = 5, repeats = 2)
+```{r include=FALSE}
+config <- trainControl(method = "repeatedcv", number = 5, repeats = 10)
 
 linearRegressionModel <- train(Price ~ ., 
                           data = dadosTreino , 
