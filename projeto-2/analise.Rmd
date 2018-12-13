@@ -3,44 +3,102 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+# Predição de preços de automóveis com Regressão Linear, ID3, KNN e XGB
+
+Inicialmente realizaremos uma amostragem dos dados tendo em vista que a base de dados é muito grande e acaba necessitando de muita
+memória para carrega-los todos em memória. Em seguida, é feito um particionamento de 80 por cento dos dados destinados ao treino
+dos modelos e 20 por cento para validação, posteriormente. Além disso, é preciso ressaltar que foi feita uma análise prévia de importância das variáveis com uma amostragem e foi detectado que algumas variáveis tiveram importância muito pequena para o modelo. Por isso, resolvemos eliminar e aumentar o número de amostras que os modelos irão utilizar para melhor aprender.
+
 ```{r importandoDados}
 library(tidyverse)
 library(caret)
 
 dadosBrutos <- read.csv("true_car_listings.csv")
-particao <- createDataPartition(dadosBrutos$Price, p = .998, 
+particao <- createDataPartition(dadosBrutos$Price, p = .99, 
                                      list = FALSE, 
                                      times = 1)
 
 dadosDisponiveis <- dadosBrutos[-particao,] %>% 
-  select(-Vin)
+  select(-Vin, -Make, -City, -State)
+
+particaoTT <- createDataPartition(dadosDisponiveis$Price, p = .2, 
+                                     list = FALSE, 
+                                     times = 1)
+dadosTreino <- dadosDisponiveis[particaoTT,]
+dadosTeste <- dadosDisponiveis[-particaoTT,]
 ```
 
+### Treinando os modelos
 
+Para treinar os modelos descritos, realizaremos uma validação cruzada com 5-folds e repeti-la 10 vezes. Como queremos prever o preço,
+utilizaremos "Price" como variável alvo para nossos modelos aprenderem. 
 ```{r treinandoModelos}
-config <- trainControl(method = "cv", number = 5 , verboseIter = TRUE )
+config <- trainControl(method = "repeatedcv", number = 5, repeats = 10)
 
 linearRegressionModel <- train(Price ~ ., 
-                          data = dadosDisponiveis , 
+                          data = dadosTreino , 
                           method = "lm", 
                           preProcess = c("center","scale"),
                           trControl = config)
 
+k <- expand.grid(k = seq(20, 100, length=20))
 knnModel <- train(Price ~ .,
-                     data = dadosDisponiveis,
+                     data = dadosTreino,
                      method = "knn",
                      preProcess = c("center","scale"),
+                     tuneGrid = k,
                      trControl = config)
 
 xgbModel <- train(Price ~ .,
-                     data = dadosDisponiveis,
+                     data = dadosTreino,
                      method = "xgbLinear",
                      preProcess = c("center","scale"),
                      trControl = config)
 
 id3Model <- train(Price ~ .,
-                     data = dadosDisponiveis,
+                     data = dadosTreino,
                      method = "rpart",
                      preProcess = c("center","scale"),
                      trControl = config)
+```
+
+### Análise dos Modelos
+
+```{r}
+knnPredic <- predict(knnModel, validacaoDado)
+regLinearPredic <- predict(linearRegressionModel, validacaoDado)
+id3Predic <- predict(id3Model, validacaoDado)
+xgbPredic <- predict(xgbModel, validacaoDado)
+```
+
+#### Todos
+```{r}
+summary(resamples(list(LM = linearRegressionModel, ID3= id3Model, XGB = xgbModel, KNN = knnModel)))
+```
+
+#### Regressão Linear
+```{r}
+p1 = ggplot(linearRegressionModel, aes(.fitted, .resid)) +
+    geom_point()
+p1 = p1 + geom_hline(yintercept=0, col="red", linetype="dashed")
+p1 = p1 + xlab("Valores ajustados") + ylab("Resíduos")
+p1 = p1 + ggtitle("Gráfico de Resíduos vs Ajustamento") + 
+    theme_bw()
+p1
+
+```
+
+#### KNN
+```{r analiseKnn}
+plot(knnModel)
+```
+
+#### ID3
+```{r analiseid3}
+plot(id3Model)
+```
+
+#### XGB
+```{r analiseXgb}
+plot(xgbModel)
 ```
