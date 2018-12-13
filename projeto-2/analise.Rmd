@@ -14,7 +14,7 @@ library(tidyverse)
 library(caret)
 
 dadosBrutos <- read.csv("true_car_listings.csv")
-particao <- createDataPartition(dadosBrutos$Price, p = .99, 
+particao <- createDataPartition(dadosBrutos$Price, p = .998, 
                                      list = FALSE, 
                                      times = 1)
 
@@ -25,15 +25,17 @@ particaoTT <- createDataPartition(dadosDisponiveis$Price, p = .2,
                                      list = FALSE, 
                                      times = 1)
 dadosTreino <- dadosDisponiveis[particaoTT,]
-dadosTeste <- dadosDisponiveis[-particaoTT,]
+dadosValidacao <- dadosDisponiveis[-particaoTT,]
 ```
 
 ### Treinando os modelos
 
 Para treinar os modelos descritos, realizaremos uma validação cruzada com 5-folds e repeti-la 10 vezes. Como queremos prever o preço,
-utilizaremos "Price" como variável alvo para nossos modelos aprenderem. 
+utilizaremos "Price" como variável alvo para nossos modelos aprenderem. Além disso, utilizaremos o pre-processamento do caret que deixa
+os valores em uma mesma escala.
+
 ```{r treinandoModelos}
-config <- trainControl(method = "repeatedcv", number = 5, repeats = 10)
+config <- trainControl(method = "repeatedcv", number = 5, repeats = 2)
 
 linearRegressionModel <- train(Price ~ ., 
                           data = dadosTreino , 
@@ -63,13 +65,6 @@ id3Model <- train(Price ~ .,
 ```
 
 ### Análise dos Modelos
-
-```{r}
-knnPredic <- predict(knnModel, validacaoDado)
-regLinearPredic <- predict(linearRegressionModel, validacaoDado)
-id3Predic <- predict(id3Model, validacaoDado)
-xgbPredic <- predict(xgbModel, validacaoDado)
-```
 
 #### Todos
 ```{r}
@@ -101,4 +96,20 @@ plot(id3Model)
 #### XGB
 ```{r analiseXgb}
 plot(xgbModel)
+```
+
+
+### Análise das predições
+
+Para realizar a análise das predições, utilizaremos os dados de validação que foram separados inicialmente, aplicando os modelos aos valores e comparando o valor de saída para avaliação dos modelos.
+
+```{r}
+knnPredic <- predict(knnModel, dadosValidacao)
+regLinearPredic <- predict(linearRegressionModel, dadosValidacao)
+id3Predic <- predict(id3Model, dadosValidacao)
+xgbPredic <- predict(xgbModel, dadosValidacao)
+```
+
+```{r}
+postResample(pred = knnPredic, obs = dadosTeste$Price)
 ```
