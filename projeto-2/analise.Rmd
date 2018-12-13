@@ -110,13 +110,13 @@ postResample(pred = knnPredic, obs = dadosTeste$Price)
 ```
 
 ```{r}
-postResample(pred = regLinearPredic, obs = dadosTeste$Price)
+postResample(pred = regLinearPredic, obs = dadosValidacao$Price)
 ```
 
 ```{r}
-postResample(pred = id3Predic, obs = dadosTeste$Price)
+postResample(pred = id3Predic, obs = dadosValidacao$Price)
 ```
 
 ```{r}
-postResample(pred = xgbPredic, obs = dadosTeste$Price)
+postResample(pred = xgbPredic, obs = dadosValidacao$Price)
 ```
