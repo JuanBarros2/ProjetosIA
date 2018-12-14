@@ -16,7 +16,7 @@ library(tidyverse)
 library(caret)
 
 dadosBrutos <- read.csv("true_car_listings.csv")
-particao <- createDataPartition(dadosBrutos$Price, p = .99, 
+particao <- createDataPartition(dadosBrutos$Price, p = .8, 
                                      list = FALSE, 
                                      times = 1)
 
