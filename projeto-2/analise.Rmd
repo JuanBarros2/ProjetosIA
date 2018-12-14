@@ -36,30 +36,30 @@ Para treinar os modelos descritos, realizaremos uma validação cruzada com 5-fo
 utilizaremos "Price" como variável alvo para nossos modelos aprenderem. Além disso, utilizaremos o pre-processamento do caret que deixa
 os valores em uma mesma escala.
 
-```{r include=FALSE}
+```{r warnings=FALSE}
 config <- trainControl(method = "repeatedcv", number = 5, repeats = 10)
 
-linearRegressionModel <- train(Price ~ ., 
+linearRegressionModel <- train(Price ~ Mileage, 
                           data = dadosTreino , 
                           method = "lm", 
                           preProcess = c("center","scale"),
                           trControl = config)
 
 k <- expand.grid(k = seq(20, 100, length=20))
-knnModel <- train(Price ~ .,
+knnModel <- train(Price ~ Mileage,
                      data = dadosTreino,
                      method = "knn",
                      preProcess = c("center","scale"),
                      tuneGrid = k,
                      trControl = config)
 
-xgbModel <- train(Price ~ .,
+xgbModel <- train(Price ~ Mileage,
                      data = dadosTreino,
                      method = "xgbLinear",
                      preProcess = c("center","scale"),
                      trControl = config)
 
-id3Model <- train(Price ~ .,
+id3Model <- train(Price ~ Mileage,
                      data = dadosTreino,
                      method = "rpart",
                      preProcess = c("center","scale"),
@@ -74,10 +74,11 @@ summary(resamples(list(LM = linearRegressionModel, ID3= id3Model, XGB = xgbModel
 ```
 
 #### Regressão Linear
-```{r}
 
+```{r}
 linearRegressionModel
 
+```
 ```
 
 #### KNN
@@ -108,7 +109,7 @@ xgbPredic <- predict(xgbModel, dadosValidacao)
 ```
 
 ```{r}
-postResample(pred = knnPredic, obs = dadosTeste$Price)
+postResample(pred = knnPredic, obs = dadosValidacao$Price)
 ```
 
 ```{r}
